@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('replies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->foreignId('role_id')->constraint();
-            $table->rememberToken();
+            $table->foreignId("message_id")->refrences("id")->on("messages");
+            $table->foreignId("post_id")->refrences("id")->on("posts");
+            $table->foreignId('reply_id')->refrences("id")->on("replies")->unsigned()->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('replies');
     }
 };
