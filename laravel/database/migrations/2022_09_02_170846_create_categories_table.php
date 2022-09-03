@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('friends', function (Blueprint $table) {
-            $table->foreignId("user_one")->references("id")->on("users");
-            $table->foreignId("user_two")->references("id")->on("users");
-            $table->primary(['user_one', 'user_two']);
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string("name");
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('friends');
+        Schema::dropIfExists('categories');
     }
 };

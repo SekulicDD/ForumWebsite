@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('friends', function (Blueprint $table) {
-            $table->foreignId("user_one")->references("id")->on("users");
-            $table->foreignId("user_two")->references("id")->on("users");
-            $table->primary(['user_one', 'user_two']);
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->foreignId("user_id")->references("id")->on("users");
+            $table->foreignId("post_id")->references("id")->on("posts");
+            $table->primary(['user_id', 'post_id']);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('friends');
+        Schema::dropIfExists('notifications');
     }
 };
