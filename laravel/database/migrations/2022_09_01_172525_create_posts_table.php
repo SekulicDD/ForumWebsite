@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId("message_id")->refrences("id")->on("messages");
-            $table->string("text_content")->constraint();
             $table->timestamps();
         });
     }
