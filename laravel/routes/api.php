@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Authentication\AuthController;
+use App\Http\Controllers\Authentication\ResetPassword;
+use App\Http\Controllers\Authentication\ResetPasswordController;
 use App\Http\Controllers\Database\CategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +27,9 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
 });
+
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
+Route::post('/change-password', [ResetPasswordController::class, 'changePassword']);
 
 Route::controller(CategoryController::class)->group(function(){
     Route::get('categories','index');
