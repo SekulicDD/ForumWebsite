@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Authentication\AuthController;
+use App\Http\Controllers\Database\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,8 +19,18 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('categories', [CategoryController::class, 'index']);
-Route::get('categories/{id}', [CategoryController::class, 'show']);
-Route::post('categories', [CategoryController::class, 'store']);
-Route::put('categories/{id}', [CategoryController::class, 'update']);
-Route::delete('categories/{id}', [CategoryController::class, 'destroy']);
+Route::controller(AuthController::class)->group(function () {
+    Route::post('login', 'login');
+    Route::post('register', 'register');
+    Route::post('logout', 'logout');
+    Route::post('refresh', 'refresh');
+});
+
+Route::controller(CategoryController::class)->group(function(){
+    Route::get('categories','index');
+    Route::get('categories/{id}','show');
+    Route::post('categories','store');
+    Route::put('categories/{id}','update');
+    Route::delete('categories/{id}','destroy');
+});
+
