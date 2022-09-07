@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('notifications', function (Blueprint $table) {
-            $table->foreignId("user_id")->references("id")->on("users");
-            $table->foreignId("post_id")->references("id")->on("posts");
+            $table->foreignId("user_id")->references("id")->on("users")->onDelete('cascade');
+            $table->foreignId("post_id")->references("id")->on("posts")->onDelete('cascade');
             $table->primary(['user_id', 'post_id']);
             $table->timestamps();
         });

@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->string("title");
+            $table->foreignId("category_id")->refrences("id")->on("categories");
             $table->foreignId("message_id")->refrences("id")->on("messages");
             $table->timestamps();
         });
