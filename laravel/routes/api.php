@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Authentication\AuthController;
-use App\Http\Controllers\Authentication\ResetPassword;
 use App\Http\Controllers\Authentication\ResetPasswordController;
 use App\Http\Controllers\Database\CategoryController;
+use App\Http\Controllers\Database\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,3 +39,11 @@ Route::controller(CategoryController::class)->group(function(){
     Route::delete('categories/{id}','destroy');
 });
 
+Route::controller(PostController::class)->group(function(){
+    Route::get('posts','index');
+    Route::get('post/{id}','getPostById');
+    Route::get('posts/{categoryId}','getPostsByCategoryId');
+    Route::post('posts','store');
+    Route::put('posts','update');
+    Route::delete('posts/{id}','destroy');
+});
