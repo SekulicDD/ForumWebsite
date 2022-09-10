@@ -11,6 +11,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { ThreadComponent } from './components/thread/thread.component';
 import { ThreadLineComponent } from './components/thread-line/thread-line.component';
 import { CommentComponent } from './components/comment/comment.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CommentComponent } from './components/comment/comment.component';
     ThreadComponent,
     ThreadLineComponent,
     CommentComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule
