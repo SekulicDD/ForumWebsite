@@ -18,7 +18,28 @@ class CategoryController extends Controller
     {
         $this->categoryRepository = $categoryRepository;
     }
-
+/**
+     * @OA\Get(
+     *      path="/api/categories",
+     *      operationId="getCategories",
+     *      tags={"Categories"},
+     *      summary="Get list of categories",
+     *      description="Returns list of categories",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
     public function index(): JsonResponse 
     {
         return response()->json([
