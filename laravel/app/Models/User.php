@@ -48,7 +48,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function messages(){
-        return $this->belongsTo(Message::class);
+        return $this->hasMany(Message::class);
     }
 
     public function notifications()
@@ -58,8 +58,13 @@ class User extends Authenticatable implements JWTSubject
 
     public function friends()
     {
-        return $this->belongsTo(Friend::class,"id","user_one");
+        return $this->belongsToMany(User::class,"friends","user_one","user_two");
     }
+
+    public function image(){
+        return $this->belongsTo(Image::class);
+    }
+
 
     //JWT
     public function getJWTIdentifier()

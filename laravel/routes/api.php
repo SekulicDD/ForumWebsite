@@ -4,6 +4,7 @@ use App\Http\Controllers\Authentication\AuthController;
 use App\Http\Controllers\Authentication\ResetPasswordController;
 use App\Http\Controllers\Database\CategoryController;
 use App\Http\Controllers\Database\PostController;
+use App\Http\Controllers\Database\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::controller(AuthController::class)->group(function () {
+Route::controller(AuthController::class)->group(function (){
     Route::post('login', 'login');
     Route::post('register', 'register');
     Route::post('logout', 'logout');
@@ -46,4 +47,9 @@ Route::controller(PostController::class)->group(function(){
     Route::post('posts','store');
     Route::put('posts','update');
     Route::delete('posts/{id}','destroy');
+});
+
+Route::controller(UserController::class)->group(function(){
+    Route::get('users/{id}','show');
+    Route::put('users/{id}','update');
 });
