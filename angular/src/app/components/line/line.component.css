@@ -1,0 +1,29 @@
+.topic{
+    background-color:white;
+    color:#3f3f3f;
+    font-size:20px;
+    font-weight:400;
+    padding: 14px;
+    border-bottom:1px solid #a8a8a8;
+}
+.flex{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.position{
+    display:flex;
+    width:200px;
+    justify-content: space-evenly;
+    text-align: center;
+}
+.text{
+    padding-inline:20px;
+    font-size:16px;
+}
+.border{
+    border-right: solid 1px #a8a8a8;
+}
+.shadow{
+    box-shadow: 5px 5px #d8d8d8;
+}

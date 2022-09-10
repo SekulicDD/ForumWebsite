@@ -1,0 +1,28 @@
+.btn{
+    text-align: center;
+    padding-inline:50px;
+    padding-block: 10px;
+    border:none;
+}
+.btn2{
+    text-align: center;
+    padding-inline:20px;
+    padding-block: 10px;
+    border:none;
+}
+.num{
+    border:1px solid #a8a8a8;
+    padding-inline:8px;
+    padding-block:2px;
+    background-color: white;
+    text-align: center;
+}
+.mright{
+    margin-left:auto;
+}
+button{
+    border:none;
+}
+.hover:hover{
+    filter:brightness(95%);
+}

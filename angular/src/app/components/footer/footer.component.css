@@ -1,0 +1,23 @@
+footer {
+    display: flex;
+    width:100%;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: white;
+    margin-top:28px;
+    min-height:100px;
+}
+button{
+    border:none;    
+    display: inline-block;
+}
+.inline{
+    display:inline;
+}
+.spacing{
+    display:flex;
+    justify-content: space-between;
+}
+.margin{
+    margin-left:20px;
+}
