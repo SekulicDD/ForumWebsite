@@ -1,0 +1,14 @@
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    width:100%;
+}
+#numbers{
+    margin-right:14px;
+    display:inline-block;
+}
+.bm{
+     margin-top:20px;
+}
+
