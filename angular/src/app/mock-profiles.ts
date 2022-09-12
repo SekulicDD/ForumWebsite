@@ -1,3 +1,4 @@
+import { MaxLengthValidator } from '@angular/forms';
 import {Profile} from './Profile'
 
 export const PROFILE: Profile[] = [
@@ -9,5 +10,8 @@ export const PROFILE: Profile[] = [
         activity: 'Today at 7:29',
         imageOP:'assets/img/user.png',
         rating:110,
+        age:17,
+        gender: 'Male',
+        location: 'Belgrade'
     },
 ];

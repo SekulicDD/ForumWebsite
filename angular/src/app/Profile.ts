@@ -6,4 +6,7 @@ export interface Profile {
     activity: string;
     imageOP:string;
     rating:number;
+    age:number;
+    gender:string;
+    location:string;
 }

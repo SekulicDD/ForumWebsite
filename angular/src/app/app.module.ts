@@ -12,6 +12,8 @@ import { ThreadComponent } from './components/thread/thread.component';
 import { ThreadLineComponent } from './components/thread-line/thread-line.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileCommentComponent } from './components/profile-comment/profile-comment.component';
+import { AboutComponent } from './components/about/about.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     ThreadLineComponent,
     CommentComponent,
     ProfileComponent,
+    ProfileCommentComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule
