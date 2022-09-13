@@ -1,7 +1,6 @@
 .main{
     display: flex;
     width:100%;
-    margin-top:20px;
     justify-content: center;
     align-items: center;
 }
@@ -11,7 +10,6 @@
     font-size:20px;
     font-weight:400;
     padding: 10px;
-    margin-top:28px;
 }
 .flex{
     display:flex;
@@ -32,16 +30,8 @@
     padding-right:20px;
     margin-bottom:10px;
 }
-.info{
-    margin-inline:20px;
-    padding-inline:20px;
-}
-.text{
-    font-size:15px;
-}
 .border{
-    padding-left:10px;
-    border-left: solid 1px #a8a8a8;
+    border-right: solid 1px #a8a8a8;
 }
 .shadow{
     box-shadow: 5px 5px #d8d8d8;
@@ -50,24 +40,51 @@
     margin-left:auto;
     margin-right:auto;
     margin-bottom:10px;
-    width:120px;
-}
-.image2{
-    display:inline-block;
-    width:15px;
-    margin-inline:20px;
+    width:160px;
 }
 .name{
     padding:10px;
     text-align: center;
     margin-right:10px;
 }
-.wide{
-    width:180px;
-}
 #mb{
     margin-bottom:10px;
 }
 .align{
     align-items: center;
+}
+
+#text{
+    width:100%;
+    min-height: 120px;
+    padding: 10px 10px 120px 10px;
+    margin-bottom: 10px;
+    word-break: break-all;
+}
+.button1{
+    border:1px solid #a8a8a8;
+    padding:10px;
+    margin-right:10px;
+    margin-bottom:10px;
+}
+.button2{
+    border:none;
+    padding:10px;
+    margin-right:10px;
+    margin-bottom:10px;
+}
+.button1:hover{
+    background-color: #f6f6f6;
+}
+.button2:hover{
+    filter:brightness(95%)
+}
+.block{
+    display:block;
+}
+.width{
+    width:100%;
+}
+.justify{
+    justify-content: space-between;
 }

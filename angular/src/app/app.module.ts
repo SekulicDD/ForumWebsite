@@ -14,6 +14,8 @@ import { CommentComponent } from './components/comment/comment.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileCommentComponent } from './components/profile-comment/profile-comment.component';
 import { AboutComponent } from './components/about/about.component';
+import { CommentFormComponent } from './components/comment-form/comment-form.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -30,9 +32,11 @@ import { AboutComponent } from './components/about/about.component';
     ProfileComponent,
     ProfileCommentComponent,
     AboutComponent,
+    CommentFormComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
