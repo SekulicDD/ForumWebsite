@@ -8,7 +8,7 @@
 .flex-col{
     display: flex;
     flex-direction: column;
-    align-items:flex-end;
+    align-items: flex-end;
 }
 .flex{
     display:flex;
@@ -16,7 +16,7 @@
     text-align: right;
 }
 .container-small{
-    width:700px;
+    width:600px;
     padding:20px;
 }
 .info{
@@ -25,10 +25,10 @@
 }
 .m-p{
     margin-right:10px;
-    padding:10px;
+    padding:25px 20px 10px 20px;
 }
 input{
-    min-width: 400px;
+    min-width: 300px;
     margin-block:14px;
     padding:10px;
 }
@@ -48,12 +48,15 @@ input{
 #button1:hover{
     background-color: #d8d8d8;
 }
-.buttons{
+.button2{
     border:none;
     padding-block:10px;
     padding-inline:20px;
     width: max-content;
 }
-.buttons:hover{
+.button2:hover{
     background-color:#16a9c9;
+}
+span{
+    margin-block:10px;
 }
