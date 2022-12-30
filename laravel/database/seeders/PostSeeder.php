@@ -19,9 +19,10 @@ class PostSeeder extends Seeder
     {
         for ($i = 1; $i < 4; $i++) {
             DB::table('posts')->insert([
-                'title'=>"Neki title",
+                'title'=>"Neki title".$i,
                 'category_id'=>5-$i,
-                'message_id'=>$i
+                'user_id'=>$i,
+                'text_content'=>"Neki sadrzaj posta".$i
             ]);
         }
     }

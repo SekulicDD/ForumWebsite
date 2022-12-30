@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Database;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Repositories\MessageRepository;
 use App\Repositories\PostRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,12 +13,11 @@ use Illuminate\Http\Response;
 class PostController extends Controller
 {
     private PostRepository $postRepository;
-    private MessageRepository $messageRepository;
 
-    public function __construct(PostRepository $postRepository,MessageRepository $messageRepository) 
+    public function __construct(PostRepository $postRepository) 
     {
+        $this->middleware('auth:api', ['except' => ['index','getPostById','getPostsByCategoryId']]);
         $this->postRepository = $postRepository;
-        $this->messageRepository = $messageRepository;
     }
 
     public function index(): JsonResponse 
@@ -42,11 +40,11 @@ class PostController extends Controller
 
         $includes=[];
         
-        if($request->query("images"))
+        if($request->query("images")=="true")
             array_push($includes,"images");
-        if($request->query("category"))
+        if($request->query("category")=="true")
             array_push($includes,"category");
-        if($request->query("replies"))
+        if($request->query("replies")=="true")
             array_push($includes,"replies");
         
         return response()->json([
@@ -57,17 +55,13 @@ class PostController extends Controller
    
     public function store(CreatePostRequest $request): JsonResponse 
     {
-        $messageDetails = $request->only([
+  
+        $postDetails = $request->only([
+            'title',
+            'category_id',
             'user_id',
             'text_content'
         ]);
-
-        $messageId=$this->messageRepository->createMessage($messageDetails);
-        $postDetails = $request->only([
-            'title',
-            'category_id'
-        ]);
-        $postDetails["message_id"]=$messageId->id;
         
         return response()->json(
             [
@@ -81,16 +75,10 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request): JsonResponse 
     {
         $postId = $request->only('id');
-        $messageId=$request->only('message_id');
-
-        $messageDetails = $request->only([
-            'text_content'
-        ]);
-
-        if(!empty($messageDetails["text_content"]))
-            $messageId=$this->messageRepository->updateMessage($messageId,$messageDetails["text_content"]);
+      
         $postDetails = $request->only([
             'title',
+            'text_content',
             'category_id'
         ]);
 
@@ -102,7 +90,7 @@ class PostController extends Controller
     public function destroy(Request $request): JsonResponse 
     {
         $postId = $request->route('id');
-        $this->postRepository->deletepost($postId);
+        $this->postRepository->deletePost($postId);
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }

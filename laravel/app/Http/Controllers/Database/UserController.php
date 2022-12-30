@@ -27,6 +27,8 @@ class UserController extends Controller
             array_push($includes,"image");
         if($request->query("friends"))
             array_push($includes,"friends");
+        if($request->query("role"))
+            array_push($includes,"role");
         
         return response()->json([
             'data' => $this->userRepository->getUser($userId,$includes)

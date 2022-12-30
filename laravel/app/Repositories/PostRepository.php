@@ -10,13 +10,13 @@ class PostRepository implements PostRepositoryInterface
     public function getAllPosts()
     {
         return Post::with("category")
-        ->with("message.user")->all();
+        ->with("replies.user")->all();
     } 
 
     public function getPostById($postId)
     {
         $post=Post::with("category")
-        ->with("message.user")
+        ->with("replies.user")
         ->with("images")
         ->with("replies")
         ->where("id",$postId)->first();
@@ -25,7 +25,7 @@ class PostRepository implements PostRepositoryInterface
 
     public function getPostsByCategoryId($categoryId,$includes)
     {
-        $post= Post::where("category_id",$categoryId)->with("message.user");
+        $post= Post::where("category_id",$categoryId)->with("replies.user");
         foreach ($includes as $value) {
             $post=$post->with($value);
         }
@@ -41,7 +41,8 @@ class PostRepository implements PostRepositoryInterface
         $post=new Post;
         $post->title=$postDetails["title"];
         $post->category_id=$postDetails["category_id"];
-        $post->message_id=$postDetails["message_id"];
+        $post->user_id=$postDetails["user_id"];
+        $post->text_content=$postDetails["text_content"];
         $post->save();
         return $post;
        
@@ -58,6 +59,12 @@ class PostRepository implements PostRepositoryInterface
             $post->category_id=$newDetails["category_id"];
             $post->save();
         }
+
+        if(!empty($newDetails["text_content"])){
+            $post->text_content=$newDetails["text_content"];
+            $post->save();
+        }
+
 
         return $post;
     }

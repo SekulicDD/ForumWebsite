@@ -28,10 +28,8 @@ class UpdatePostRequest extends FormRequest
     {
         return [
             'id'=>'required|exists:posts,id',
-            'message_id'=>'required|exists:messages,id',
             'user_id'=>[
                 'required|exists:users,id',
-                Rule::exists("messages","user_id")->where("message_id","message_id")  
             ],
             'title'=> ' max:50',
             'category_id'=>'exists:categories,id',
