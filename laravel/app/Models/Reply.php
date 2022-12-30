@@ -9,11 +9,16 @@ class Reply extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'text_content'
+    ];
+
     public function post(){
-        return $this->hasOne(Post::class);
+        return $this->belongsTo(Post::class);
     }
-    public function message(){
-        return $this->hasOne(Message::class);
+    public function user(){
+        return $this->belongsTo(User::class);
     }
     public function reply(){
         return $this->hasOne(Reply::class);

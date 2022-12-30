@@ -4,6 +4,7 @@ use App\Http\Controllers\Authentication\AuthController;
 use App\Http\Controllers\Authentication\ResetPasswordController;
 use App\Http\Controllers\Database\CategoryController;
 use App\Http\Controllers\Database\PostController;
+use App\Http\Controllers\Database\ReplyController;
 use App\Http\Controllers\Database\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,14 +43,23 @@ Route::controller(CategoryController::class)->group(function(){
 
 Route::controller(PostController::class)->group(function(){
     Route::get('posts','index');
-    Route::get('post/{id}','getPostById');
-    Route::get('posts/{categoryId}','getPostsByCategoryId');
+    Route::get('posts/{id}','getPostById');
+    Route::get('posts/category/{categoryId}','getPostsByCategoryId');
     Route::post('posts','store');
-    Route::put('posts','update');
+    Route::put('posts/{id}','update');
     Route::delete('posts/{id}','destroy');
 });
 
 Route::controller(UserController::class)->group(function(){
     Route::get('users/{id}','show');
     Route::put('users/{id}','update');
+});
+
+Route::controller(ReplyController::class)->group(function(){
+    Route::get('replies/{id}','getReply');
+    Route::get('replies/user/{userId}','getRepliesByUserId');
+    Route::get('replies/post/{postId}','getRepliesByPostId');
+    Route::post('replies','store');
+    Route::put('replies','update');
+    Route::delete('replies/{id}','destroy');
 });
