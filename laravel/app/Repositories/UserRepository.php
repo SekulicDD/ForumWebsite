@@ -2,26 +2,34 @@
 
 namespace App\Repositories;
 
+use App\Http\Resources\UserResource;
 use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 use Illuminate\Support\Arr;
 
 class UserRepository implements UserRepositoryInterface 
 {
+
+    public function getUsers($includes)
+    {
+        $user= User::query();
+
+        foreach ($includes as $value) {
+            $user=$user->with($value);
+        }
+
+        return UserResource::collection($user->get());
+    }
+ 
     public function getUser($userId,$includes)
     {
         $user= User::where("id",$userId);
         
-        if(!empty($includes)&&$includes[0]=="messages"){
-            $user=$user->with("messages.post");
-            $includes=Arr::except($includes,"messages");
-        }
-       
         foreach ($includes as $value) {
             $user=$user->with($value);
         }
       
-        return $user->first();
+        return new UserResource($user->first());
     }
 
     public function updateUser($userId, array $newDetails){
@@ -31,6 +39,6 @@ class UserRepository implements UserRepositoryInterface
             $user->save();
         }
 
-        return $user;
+        return  new UserResource($user);
     }
 }

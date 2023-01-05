@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Database;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
+use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request as HttpRequest;
@@ -46,12 +47,11 @@ class CategoryController extends Controller
             'data' => $this->categoryRepository->getAllCategories()
         ]);
     }
-    public function show(HttpRequest $request): JsonResponse 
+    public function show(Category $category): JsonResponse 
     {
-        $id = $request->route('id');
-
+    
         return response()->json([
-            'data' => $this->categoryRepository->getCategory($id)
+            'data' => $this->categoryRepository->getCategory($category)
         ]);
     }
    
@@ -71,7 +71,7 @@ class CategoryController extends Controller
 
     public function update(CategoryRequest $request): JsonResponse 
     {
-        $categoryId = $request->route('id');
+        $categoryId = $request->only('id');
         $categoryDetails = $request->only([
             'name',
         ]);
@@ -81,11 +81,9 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function destroy(HttpRequest $request): JsonResponse 
+    public function destroy(Category $category): JsonResponse 
     {
-        $categoryId = $request->route('id');
-        $this->categoryRepository->deleteCategory($categoryId);
-
+        $this->categoryRepository->deleteCategory($category);
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
     

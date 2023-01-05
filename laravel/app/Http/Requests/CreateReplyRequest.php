@@ -27,7 +27,6 @@ class CreateReplyRequest extends FormRequest
     {
         return [   
             'user_id'=>'required|exists:users,id',
-            'post_id'=>'required|exists:posts,id',
             'text_content'=>'required| min:10 | max:1000',
         ];       
     }

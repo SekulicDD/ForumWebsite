@@ -6,6 +6,7 @@ use App\Http\Controllers\Database\CategoryController;
 use App\Http\Controllers\Database\PostController;
 use App\Http\Controllers\Database\ReplyController;
 use App\Http\Controllers\Database\UserController;
+use App\Http\Controllers\Database\FriendsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,31 +36,45 @@ Route::post('/change-password', [ResetPasswordController::class, 'changePassword
 
 Route::controller(CategoryController::class)->group(function(){
     Route::get('categories','index');
-    Route::get('categories/{id}','show');
+    Route::get('categories/{category}','show');
+
     Route::post('categories','store');
-    Route::put('categories/{id}','update');
-    Route::delete('categories/{id}','destroy');
+    Route::put('categories','update');
+    Route::delete('categories/{category}','destroy');
 });
 
 Route::controller(PostController::class)->group(function(){
     Route::get('posts','index');
-    Route::get('posts/{id}','getPostById');
-    Route::get('posts/category/{categoryId}','getPostsByCategoryId');
+    Route::get('posts/{post}','getPostById');
+
+    Route::get('categories/{category}/posts','getCategoryPosts');
+    Route::get('users/{user}/posts','getUserPosts');
+
     Route::post('posts','store');
-    Route::put('posts/{id}','update');
-    Route::delete('posts/{id}','destroy');
+    Route::put('posts','update');
+    Route::delete('posts/{post}','destroy');
 });
 
 Route::controller(UserController::class)->group(function(){
-    Route::get('users/{id}','show');
+    Route::get('users','index');
+    Route::get('users/{user}','show');
     Route::put('users/{id}','update');
 });
 
+Route::controller(FriendsController::class)->group(function(){
+    Route::get('users/{user}/friend-requests','getFriends');
+
+    Route::delete('users/{user}/friends','destroy');
+});
+
+
 Route::controller(ReplyController::class)->group(function(){
     Route::get('replies/{id}','getReply');
-    Route::get('replies/user/{userId}','getRepliesByUserId');
-    Route::get('replies/post/{postId}','getRepliesByPostId');
-    Route::post('replies','store');
+
+    Route::get('users/{userId}/replies','getUserReplies');
+    Route::get('posts/{postId}/replies','getPostReplies');
+
+    Route::post('posts/{post}/replies','store');
     Route::put('replies','update');
     Route::delete('replies/{id}','destroy');
 });

@@ -8,10 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
-
+use \Staudenmeir\LaravelMergedRelations\Eloquent\HasMergedRelationships;
 class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasMergedRelationships;
 
     /**
      * The attributes that are mass assignable.
@@ -60,15 +60,9 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(Notification::class);
     }
 
-    public function friends()
-    {
-        return $this->belongsToMany(User::class,"friends","user_one","user_two");
-    }
-
     public function image(){
         return $this->belongsTo(Image::class);
     }
-
 
     //JWT
     public function getJWTIdentifier()
@@ -80,4 +74,42 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    //FRIENDS
+    
+    public function friendsTo()
+    {
+        return $this->belongsToMany(User::class,"users_friends","user_id","friend_id")
+        ->withPivot('accepted');
+    }
+
+    public function friendsFrom()
+    {
+        return $this->belongsToMany(User::class,"users_friends","friend_id","user_id")
+        ->withPivot('accepted');
+    }
+
+    public function pendingFriendsTo()
+    {
+        return $this->friendsTo()->wherePivot('accepted', false);
+    }
+    
+    public function pendingFriendsFrom()
+    {
+        return $this->friendsFrom()->wherePivot('accepted', false);
+    }
+    
+    public function acceptedFriendsTo()
+    {
+        return $this->friendsTo()->wherePivot('accepted', true);
+    }
+    
+    public function acceptedFriendsFrom()
+    {
+        return $this->friendsFrom()->wherePivot('accepted', true);
+    }
+
+    public function friends()
+    {
+        return $this->mergedRelationWithModel(User::class, 'friends_view');
+    }
 }

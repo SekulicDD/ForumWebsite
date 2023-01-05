@@ -16,20 +16,28 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function show(Request $request): JsonResponse{
-        $userId = $request->route('id');
-
-        $includes=[];
-        
-        if($request->query("messages"))
-            array_push($includes,"messages");
-        if($request->query("image"))
-            array_push($includes,"image");
-        if($request->query("friends"))
-            array_push($includes,"friends");
+    private function includeRelations(Request $request){
+        $includes=[]; 
         if($request->query("role"))
             array_push($includes,"role");
-        
+        if($request->query("image"))
+            array_push($includes,"image");
+        return $includes;    
+    }
+
+    public function index(Request $request): JsonResponse{ 
+        return response()->json([
+            'data' => $this->userRepository->getUsers($this->includeRelations($request))
+        ]);
+    }
+
+    public function show(Request $request): JsonResponse{
+        $userId = $request->route('user');
+
+        $includes=$this->includeRelations($request);
+        // if($request->query("friends"))
+        //     array_push($includes,"friends"); //friends to, friend from
+
         return response()->json([
             'data' => $this->userRepository->getUser($userId,$includes)
         ]);

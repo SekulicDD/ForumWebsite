@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Database;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Http\Resources\PostResource;
+use App\Models\Post;
 use App\Repositories\PostRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -16,7 +18,7 @@ class PostController extends Controller
 
     public function __construct(PostRepository $postRepository) 
     {
-        $this->middleware('auth:api', ['except' => ['index','getPostById','getPostsByCategoryId']]);
+        $this->middleware('auth:api', ['except' => ['index','getPostById','getCategoryPosts','getUserPosts']]);
         $this->postRepository = $postRepository;
     }
 
@@ -26,29 +28,36 @@ class PostController extends Controller
             'data' => $this->postRepository->getAllPosts()
         ]);
     }
-    public function getPostById(Request $request): JsonResponse 
-    {
-        $id=$request->route('id');
-   
+    public function getPostById(Post $post) : JsonResponse 
+    { 
         return response()->json([
-            'data' => $this->postRepository->getPostById($id)
+            'data' => $this->postRepository->getPost($post)
         ]);
     }
     
-    public function getPostsByCategoryId(Request $request): JsonResponse{
-        $categoryId = $request->route('categoryId');
+    public function getCategoryPosts(Request $request): JsonResponse{
+        $categoryId = $request->route('category');
 
         $includes=[];
-        
-        if($request->query("images")=="true")
+        if($request->query("images"))
             array_push($includes,"images");
-        if($request->query("category")=="true")
-            array_push($includes,"category");
-        if($request->query("replies")=="true")
-            array_push($includes,"replies");
+        if($request->query("user"))
+            array_push($includes,"user");
         
         return response()->json([
-            'data' => $this->postRepository->getPostsByCategoryId($categoryId,$includes)
+            'data' => $this->postRepository->getCategoryPosts($categoryId,$includes)
+        ]);
+    }
+
+    public function getUserPosts(Request $request): JsonResponse{
+        $userId = $request->route('user');
+
+        $includes=[];
+        if($request->query("images"))
+            array_push($includes,"images");
+        
+        return response()->json([
+            'data' => $this->postRepository->getUserPosts($userId,$includes)
         ]);
     }
 
@@ -83,15 +92,13 @@ class PostController extends Controller
         ]);
 
         return response()->json([
-            'data' => $this->postRepository->updatepost($postId, $postDetails)
+            'data' => $this->postRepository->updatePost($postId, $postDetails)
         ]);
     }
 
-    public function destroy(Request $request): JsonResponse 
+    public function destroy(Post $post): JsonResponse 
     {
-        $postId = $request->route('id');
-        $this->postRepository->deletePost($postId);
-
+        $this->postRepository->deletePost($post);
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

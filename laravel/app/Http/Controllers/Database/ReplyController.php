@@ -36,7 +36,7 @@ class ReplyController extends Controller
         ]);
     }
 
-    public function getRepliesByUserId(Request $request):JsonResponse{
+    public function getUserReplies(Request $request):JsonResponse{
         $userId = $request->route('userId');
 
         return response()->json([
@@ -44,7 +44,7 @@ class ReplyController extends Controller
         ]);
     }
 
-    public function getRepliesByPostId(Request $request):JsonResponse{
+    public function getPostReplies(Request $request):JsonResponse{
         $postId = $request->route('postId');
 
         return response()->json([
@@ -54,10 +54,11 @@ class ReplyController extends Controller
 
     public function store(CreateReplyRequest $request):JsonResponse{
         $replyDetails = $request->only([
-            'post_id',
             'user_id',
             'text_content'
         ]);
+
+        $replyDetails['post_id'] = $request->route('post');
 
         return response()->json(
             [

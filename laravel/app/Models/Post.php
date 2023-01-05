@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Route;
 
 class Post extends Model
 {
@@ -31,12 +32,4 @@ class Post extends Model
         return $this->hasMany(Reply::class);
     }
 
-
-    public static function boot() {
-        parent::boot();
-
-        static::deleting(function($post) {
-            $post->message()->delete();
-        });
-    }
 }

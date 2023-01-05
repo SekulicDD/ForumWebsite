@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Http\Resources\PostResource;
 use App\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
 
@@ -9,32 +10,39 @@ class PostRepository implements PostRepositoryInterface
 {
     public function getAllPosts()
     {
-        return Post::with("category")
-        ->with("replies.user")->all();
+        return PostResource::collection(Post::with("category")
+        ->with("user")->with("images")->get());
     } 
 
-    public function getPostById($postId)
+    public function getPost($post)
     {
-        $post=Post::with("category")
-        ->with("replies.user")
-        ->with("images")
-        ->with("replies")
-        ->where("id",$postId)->first();
-        return $post;
+        $post->user=$post->user;
+        $post->images=$post->images;
+        return new PostResource($post);
     }
 
-    public function getPostsByCategoryId($categoryId,$includes)
+    public function getCategoryPosts($categoryId,$includes)
     {
-        $post= Post::where("category_id",$categoryId)->with("replies.user");
+        $post= Post::where("category_id",$categoryId);
         foreach ($includes as $value) {
             $post=$post->with($value);
         }
       
-        return $post->get();
+        return PostResource::collection($post->get());
     }
 
-    public function deletePost($postId){
-        Post::destroy($postId);
+    public function getUserPosts($userId,$includes)
+    {
+        $post= Post::where("user_id",$userId);
+        foreach ($includes as $value) {
+            $post=$post->with($value);
+        }
+      
+        return PostResource::collection($post->get());
+    }
+
+    public function deletePost($post){
+        $post->delete();
     }
 
     public function createPost(array $postDetails){
@@ -44,7 +52,7 @@ class PostRepository implements PostRepositoryInterface
         $post->user_id=$postDetails["user_id"];
         $post->text_content=$postDetails["text_content"];
         $post->save();
-        return $post;
+        return new PostResource($post);
        
     }
 
@@ -66,6 +74,6 @@ class PostRepository implements PostRepositoryInterface
         }
 
 
-        return $post;
+        return new PostResource($post);
     }
 }
