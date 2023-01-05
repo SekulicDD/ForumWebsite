@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('friends', function (Blueprint $table) {
-            $table->foreignId("user_one")->references("id")->on("users");
-            $table->foreignId("user_two")->references("id")->on("users");
-            $table->primary(['user_one', 'user_two']);
+        Schema::create('users_friends', function (Blueprint $table) {
+            $table->foreignId("user_id")->references("id")->on("users");
+            $table->foreignId("friend_id")->references("id")->on("users");
+            $table->boolean("accepted")->default(0);
+            $table->primary(['user_id', 'friend_id']);
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('friends');
+        Schema::dropIfExists('users_friends');
     }
 };
