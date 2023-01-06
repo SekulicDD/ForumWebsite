@@ -62,8 +62,10 @@ Route::controller(UserController::class)->group(function(){
 });
 
 Route::controller(FriendsController::class)->group(function(){
-    Route::get('users/{user}/friend-requests','getFriends');
-
+    Route::get('users/{user}/friend-requests','getAcceptedFriends');
+    Route::get('users/{user}/friend-requests/incoming','getIncomingFriends');
+    Route::get('users/{user}/friend-requests/outgoing','getOutgoingFriends');
+    Route::post('users/{user}/friends','store');
     Route::delete('users/{user}/friends','destroy');
 });
 

@@ -4,10 +4,10 @@ namespace App\Interfaces;
 
 interface FriendsRepositoryInterface 
 {
-    public function getAcceptedFriends($user);
-    public function getIncomingFriends($user);
-    public function getOutgoingFriends($user);
-    // public function addFriend($id);
-    // public function removeFriend($id);
+    public function getAcceptedFriends($userId);
+    public function getIncomingFriends($userId);
+    public function getOutgoingFriends($userId);
+    public function friendRequest($userId);
+    public function removeFriend($userId);
 }
 
