@@ -14,10 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users_friends', function (Blueprint $table) {
+            $table->id();
             $table->foreignId("user_id")->references("id")->on("users");
             $table->foreignId("friend_id")->references("id")->on("users");
             $table->boolean("accepted")->default(0);
-            $table->primary(['user_id', 'friend_id']);
+            $table->unique(['user_id', 'friend_id']);
             $table->timestamps();
         });
     }

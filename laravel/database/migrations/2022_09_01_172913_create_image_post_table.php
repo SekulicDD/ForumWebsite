@@ -14,9 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('image_post', function (Blueprint $table) {
+            $table->id();
             $table->foreignId("image_id")->references("id")->on("images")->onDelete('cascade');
             $table->foreignId("post_id")->references("id")->on("posts")->onDelete('cascade');
-            $table->primary(['image_id', 'post_id']);
+            $table->unique(['image_id', 'post_id']);
             $table->timestamps();
         });
     }
