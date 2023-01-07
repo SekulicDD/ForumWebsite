@@ -25,19 +25,26 @@ class UserController extends Controller
         return $includes;    
     }
 
+    private function limitRequest(Request $request){
+        $limit = $request->only('limit');
+        if($limit)
+            $limit=(int)$limit['limit'];
+        if($limit>100)
+            $limit==100;
+        return $limit;
+    }
+
     public function index(Request $request): JsonResponse{ 
         return response()->json([
-            'data' => $this->userRepository->getUsers($this->includeRelations($request))
+            'data' => $this->userRepository->getUsers(
+                $this->includeRelations($request),
+                $this->limitRequest($request))
         ]);
     }
 
     public function show(Request $request): JsonResponse{
         $userId = $request->route('user');
-
         $includes=$this->includeRelations($request);
-        // if($request->query("friends"))
-        //     array_push($includes,"friends"); //friends to, friend from
-
         return response()->json([
             'data' => $this->userRepository->getUser($userId,$includes)
         ]);

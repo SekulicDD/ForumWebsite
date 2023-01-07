@@ -8,10 +8,10 @@ use App\Models\Post;
 
 class PostRepository implements PostRepositoryInterface 
 {
-    public function getAllPosts()
+    public function getAllPosts($limit)
     {
         return PostResource::collection(Post::with("category")
-        ->with("user")->with("images")->get());
+        ->with("user")->with("images")->paginate($limit))->response()->getData();
     } 
 
     public function getPost($post)
@@ -21,24 +21,24 @@ class PostRepository implements PostRepositoryInterface
         return new PostResource($post);
     }
 
-    public function getCategoryPosts($categoryId,$includes)
+    public function getCategoryPosts($categoryId,$includes,$limit)
     {
         $post= Post::where("category_id",$categoryId);
         foreach ($includes as $value) {
             $post=$post->with($value);
         }
       
-        return PostResource::collection($post->get());
+        return PostResource::collection($post->paginate($limit))->response()->getData();
     }
 
-    public function getUserPosts($userId,$includes)
+    public function getUserPosts($userId,$includes,$limit)
     {
         $post= Post::where("user_id",$userId);
         foreach ($includes as $value) {
             $post=$post->with($value);
         }
       
-        return PostResource::collection($post->get());
+        return PostResource::collection($post->paginate($limit))->response()->getData();
     }
 
     public function deletePost($post){

@@ -10,7 +10,7 @@ use Illuminate\Support\Arr;
 class UserRepository implements UserRepositoryInterface 
 {
 
-    public function getUsers($includes)
+    public function getUsers($includes,$limit)
     {
         $user= User::query();
 
@@ -18,7 +18,7 @@ class UserRepository implements UserRepositoryInterface
             $user=$user->with($value);
         }
 
-        return UserResource::collection($user->get());
+        return UserResource::collection($user->paginate($limit));
     }
  
     public function getUser($userId,$includes)

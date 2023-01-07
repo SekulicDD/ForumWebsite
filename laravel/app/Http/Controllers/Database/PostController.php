@@ -22,10 +22,20 @@ class PostController extends Controller
         $this->postRepository = $postRepository;
     }
 
-    public function index(): JsonResponse 
+    private function limitRequest(Request $request){
+        $limit = $request->only('limit');
+        if($limit)
+            $limit=(int)$limit['limit'];
+        if($limit>100)
+            $limit==100;
+        return $limit;
+    }
+
+    public function index(Request $request): JsonResponse 
     {
+        
         return response()->json([
-            'data' => $this->postRepository->getAllPosts()
+            'data' => $this->postRepository->getAllPosts($this->limitRequest($request))
         ]);
     }
     public function getPostById(Post $post) : JsonResponse 
@@ -45,7 +55,7 @@ class PostController extends Controller
             array_push($includes,"user");
         
         return response()->json([
-            'data' => $this->postRepository->getCategoryPosts($categoryId,$includes)
+            'data' => $this->postRepository->getCategoryPosts($categoryId,$includes,$this->limitRequest($request))
         ]);
     }
 
@@ -57,7 +67,7 @@ class PostController extends Controller
             array_push($includes,"images");
         
         return response()->json([
-            'data' => $this->postRepository->getUserPosts($userId,$includes)
+            'data' => $this->postRepository->getUserPosts($userId,$includes,$this->limitRequest($request))
         ]);
     }
 

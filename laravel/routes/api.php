@@ -35,7 +35,7 @@ Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']
 Route::post('/change-password', [ResetPasswordController::class, 'changePassword']);
 
 Route::controller(CategoryController::class)->group(function(){
-    Route::get('categories','index');
+    Route::get('categories/{limit?}','index');
     Route::get('categories/{category}','show');
 
     Route::post('categories','store');
@@ -44,7 +44,7 @@ Route::controller(CategoryController::class)->group(function(){
 });
 
 Route::controller(PostController::class)->group(function(){
-    Route::get('posts','index');
+    Route::get('posts/{limit?}','index');
     Route::get('posts/{post}','getPostById');
 
     Route::get('categories/{category}/posts','getCategoryPosts');
@@ -73,8 +73,8 @@ Route::controller(FriendsController::class)->group(function(){
 Route::controller(ReplyController::class)->group(function(){
     Route::get('replies/{id}','getReply');
 
-    Route::get('users/{userId}/replies','getUserReplies');
-    Route::get('posts/{postId}/replies','getPostReplies');
+    Route::get('users/{userId}/replies/{limit?}','getUserReplies');
+    Route::get('posts/{postId}/replies/{limit?}','getPostReplies');
 
     Route::post('posts/{post}/replies','store');
     Route::put('replies','update');

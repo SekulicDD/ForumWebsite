@@ -7,8 +7,8 @@ use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -41,10 +41,16 @@ class CategoryController extends Controller
      *      )
      *     )
      */
-    public function index(): JsonResponse 
-    {
+    public function index(Request $request): JsonResponse 
+    {  
+        $perPage = $request->only('limit');
+        if($perPage)
+            $perPage=(int)$perPage['limit'];
+        if($perPage>100)
+            $perPage==100;
+        
         return response()->json([
-            'data' => $this->categoryRepository->getAllCategories()
+            'data' => $this->categoryRepository->getAllCategories($perPage)
         ]);
     }
     public function show(Category $category): JsonResponse 

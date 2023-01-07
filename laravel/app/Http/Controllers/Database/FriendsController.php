@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Database;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AddFriendRequest;
 use App\Models\User;
 use App\Repositories\FriendsRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class FriendsController extends Controller
 {

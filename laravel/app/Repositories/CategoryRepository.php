@@ -8,9 +8,10 @@ use App\Models\Category;
 
 class CategoryRepository implements CategoryRepositoryInterface 
 {
-    public function getAllCategories()
-    {
-        return CategoryResource::collection(Category::all());
+    public function getAllCategories($perPage)
+    {  
+       
+        return CategoryResource::collection(Category::paginate($perPage))->response()->getData();
     } 
 
     public function getCategory($category)

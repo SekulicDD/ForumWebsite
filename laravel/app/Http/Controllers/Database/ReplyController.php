@@ -18,6 +18,15 @@ class ReplyController extends Controller
         //$this->middleware('auth:api', ['except' => ['show']]);
         $this->replyRepository = $replyRepository;
     }
+ 
+    private function limitRequest(Request $request){
+        $limit = $request->only('limit');
+        if($limit)
+            $limit=(int)$limit['limit'];
+        if($limit>100)
+            $limit==100;
+        return $limit;
+    }
 
     private function includeRelations(Request $request){
         $includes=[];
@@ -25,6 +34,8 @@ class ReplyController extends Controller
             array_push($includes,"user");
         if($request->query("post")=="true")
             array_push($includes,"post");
+        if($request->query("reply")=="true")
+            array_push($includes,"reply");
         return $includes;
     }
 
@@ -40,7 +51,9 @@ class ReplyController extends Controller
         $userId = $request->route('userId');
 
         return response()->json([
-            'data' => $this->replyRepository->getRepliesByUserId($userId,$this->includeRelations($request))
+            'data' => $this->replyRepository->getRepliesByUserId($userId,
+            $this->includeRelations($request),
+            $this->limitRequest($request))
         ]);
     }
 
@@ -48,7 +61,9 @@ class ReplyController extends Controller
         $postId = $request->route('postId');
 
         return response()->json([
-            'data' => $this->replyRepository->getRepliesByPostId($postId,$this->includeRelations($request))
+            'data' => $this->replyRepository->getRepliesByPostId($postId,
+            $this->includeRelations($request),
+            $this->limitRequest($request))
         ]);
     }
 

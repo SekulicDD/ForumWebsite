@@ -14,6 +14,7 @@ class PostResource extends JsonResource
      */
     public function toArray($request)
     {
+        
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -23,6 +24,7 @@ class PostResource extends JsonResource
             'category'=>new CategoryResource($this->category),
             'images'=>ImageResource::collection($this->whenLoaded('images')),
             'user'=>new UserResource($this->whenLoaded('user')),
+           
         ];
     }
 }
