@@ -43,8 +43,19 @@ Route::controller(CategoryController::class)->group(function(){
     Route::delete('categories/{category}','destroy');
 });
 
+Route::controller(ReplyController::class)->group(function(){
+    Route::get('replies/{id}','getReply');
+
+    Route::get('users/{userId}/replies/{limit?}','getUserReplies');
+    Route::get('posts/{postId}/replies/{limit?}','getPostReplies');
+
+    Route::post('posts/{post}/replies','store');
+    Route::put('replies','update');
+    Route::delete('replies/{id}','destroy');
+});
+
 Route::controller(PostController::class)->group(function(){
-    Route::get('posts/{limit?}','index');
+    Route::get('posts/{limit?}/{order_by?}/{direction?}','index');
     Route::get('posts/{post}','getPostById');
 
     Route::get('categories/{category}/posts','getCategoryPosts');
@@ -70,13 +81,3 @@ Route::controller(FriendsController::class)->group(function(){
 });
 
 
-Route::controller(ReplyController::class)->group(function(){
-    Route::get('replies/{id}','getReply');
-
-    Route::get('users/{userId}/replies/{limit?}','getUserReplies');
-    Route::get('posts/{postId}/replies/{limit?}','getPostReplies');
-
-    Route::post('posts/{post}/replies','store');
-    Route::put('replies','update');
-    Route::delete('replies/{id}','destroy');
-});

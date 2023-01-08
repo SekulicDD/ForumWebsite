@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Database;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\LimitableTrait;
 use App\Repositories\UserRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -10,6 +11,8 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     private UserRepository $userRepository;
+    use LimitableTrait;
+
     public function __construct(UserRepository $userRepository) 
     {
         $this->middleware('auth:api', ['except' => ['show']]);
@@ -23,15 +26,6 @@ class UserController extends Controller
         if($request->query("image"))
             array_push($includes,"image");
         return $includes;    
-    }
-
-    private function limitRequest(Request $request){
-        $limit = $request->only('limit');
-        if($limit)
-            $limit=(int)$limit['limit'];
-        if($limit>100)
-            $limit==100;
-        return $limit;
     }
 
     public function index(Request $request): JsonResponse{ 

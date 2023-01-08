@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Database;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateReplyRequest;
+use App\Http\Traits\LimitableTrait;
 use App\Repositories\ReplyRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -13,35 +14,23 @@ use Illuminate\Http\Response as Response;
 class ReplyController extends Controller
 {
     private ReplyRepository $replyRepository;
+    use LimitableTrait;
+
     public function __construct(ReplyRepository $replyRepository) 
     {
         //$this->middleware('auth:api', ['except' => ['show']]);
         $this->replyRepository = $replyRepository;
     }
  
-    private function limitRequest(Request $request){
-        $limit = $request->only('limit');
-        if($limit)
-            $limit=(int)$limit['limit'];
-        if($limit>100)
-            $limit==100;
-        return $limit;
-    }
-
-    private function includeRelations(Request $request){
-        $includes=[];
-        if($request->query("user")=="true")
-            array_push($includes,"user");
-        if($request->query("post")=="true")
-            array_push($includes,"post");
-        if($request->query("reply")=="true")
-            array_push($includes,"reply");
-        return $includes;
+    private function includeRelations(Request $request) {
+        $queryParams = $request->query();
+        return array_filter(['post', 'user', 'reply'], function ($param) use ($queryParams) {
+            return array_key_exists($param,$queryParams);
+        });
     }
 
     public function getReply(Request $request):JsonResponse{
         $replyId = $request->route('id');
-
         return response()->json([
             'data' => $this->replyRepository->getReply($replyId,$this->includeRelations($request))
         ]);

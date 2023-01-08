@@ -6,15 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
+use App\Http\Traits\LimitableTrait;
 use App\Models\Post;
 use App\Repositories\PostRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
     private PostRepository $postRepository;
+    use LimitableTrait;
 
     public function __construct(PostRepository $postRepository) 
     {
@@ -22,20 +26,30 @@ class PostController extends Controller
         $this->postRepository = $postRepository;
     }
 
-    private function limitRequest(Request $request){
-        $limit = $request->only('limit');
-        if($limit)
-            $limit=(int)$limit['limit'];
-        if($limit>100)
-            $limit==100;
-        return $limit;
+    private function getSortOptions(Request $request)
+    {
+        $order_by = $request->query('order_by','created_at');
+        if (!in_array($order_by, ['created_at', 'updated_at', 'title'])) {
+            $order_by = 'created_at';
+        }
+
+        $direction = strtolower($request->get('direction', 'asc')); 
+        if (!in_array($direction, ['asc', 'desc'])) {
+            $direction = 'asc';
+        }
+    
+        return [
+            "orderBy" => $order_by,
+            "direction"=> $direction
+        ];
     }
 
     public function index(Request $request): JsonResponse 
-    {
-        
+    {     
         return response()->json([
-            'data' => $this->postRepository->getAllPosts($this->limitRequest($request))
+            'data' => $this->postRepository->getAllPosts(
+                $this->limitRequest($request),
+                $this->getSortOptions($request))
         ]);
     }
     public function getPostById(Post $post) : JsonResponse 
@@ -55,7 +69,10 @@ class PostController extends Controller
             array_push($includes,"user");
         
         return response()->json([
-            'data' => $this->postRepository->getCategoryPosts($categoryId,$includes,$this->limitRequest($request))
+            'data' => $this->postRepository->getCategoryPosts(
+                $categoryId,$includes,
+                $this->limitRequest($request),
+                $this->getSortOptions($request))
         ]);
     }
 
@@ -67,7 +84,10 @@ class PostController extends Controller
             array_push($includes,"images");
         
         return response()->json([
-            'data' => $this->postRepository->getUserPosts($userId,$includes,$this->limitRequest($request))
+            'data' => $this->postRepository->getUserPosts(
+                $userId,$includes,
+                $this->limitRequest($request),
+                $this->getSortOptions($request))
         ]);
     }
 

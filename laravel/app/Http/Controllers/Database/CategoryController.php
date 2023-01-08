@@ -41,16 +41,16 @@ class CategoryController extends Controller
      *      )
      *     )
      */
+
+    private function limitRequest(Request $request){
+        $limit = $request->input('limit', 100);
+        return min($limit, 100);
+    }
+
     public function index(Request $request): JsonResponse 
     {  
-        $perPage = $request->only('limit');
-        if($perPage)
-            $perPage=(int)$perPage['limit'];
-        if($perPage>100)
-            $perPage==100;
-        
         return response()->json([
-            'data' => $this->categoryRepository->getAllCategories($perPage)
+            'data' => $this->categoryRepository->getAllCategories($this->limitRequest($request))
         ]);
     }
     public function show(Category $category): JsonResponse 

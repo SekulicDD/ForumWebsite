@@ -26,7 +26,7 @@ class ReplyRepository implements ReplyRepositoryInterface
                 $reply=$reply->with($value);
         }
 
-        return ReplyResource::collection($reply->paginate($limit));
+        return ReplyResource::collection($reply->paginate($limit))->response()->getData();
     } 
 
     public function getRepliesByPostId($postId,$includes,$limit)
@@ -36,7 +36,7 @@ class ReplyRepository implements ReplyRepositoryInterface
             $reply=$reply->with($value);
         }
 
-        return ReplyResource::collection($reply->paginate($limit));
+        return ReplyResource::collection($reply->paginate($limit))->response()->getData();
     } 
 
     public function createReply(array $replyDetails)

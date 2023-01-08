@@ -5,13 +5,17 @@ namespace App\Repositories;
 use App\Http\Resources\PostResource;
 use App\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
+use Illuminate\Http\Request;
 
 class PostRepository implements PostRepositoryInterface 
 {
-    public function getAllPosts($limit)
+
+    public function getAllPosts($limit,array $sortOptions)
     {
         return PostResource::collection(Post::with("category")
-        ->with("user")->with("images")->paginate($limit))->response()->getData();
+        ->with("user")->with("images")
+        ->orderBy($sortOptions["orderBy"],$sortOptions["direction"])
+        ->paginate($limit))->response()->getData();
     } 
 
     public function getPost($post)
@@ -21,24 +25,28 @@ class PostRepository implements PostRepositoryInterface
         return new PostResource($post);
     }
 
-    public function getCategoryPosts($categoryId,$includes,$limit)
+    public function getCategoryPosts($categoryId,$includes,$limit,array $sortOptions)
     {
         $post= Post::where("category_id",$categoryId);
         foreach ($includes as $value) {
             $post=$post->with($value);
         }
       
-        return PostResource::collection($post->paginate($limit))->response()->getData();
+        return PostResource::collection($post
+        ->orderBy($sortOptions["orderBy"],$sortOptions["direction"])
+        ->paginate($limit))->response()->getData();
     }
 
-    public function getUserPosts($userId,$includes,$limit)
+    public function getUserPosts($userId,$includes,$limit,array $sortOptions)
     {
         $post= Post::where("user_id",$userId);
         foreach ($includes as $value) {
             $post=$post->with($value);
         }
       
-        return PostResource::collection($post->paginate($limit))->response()->getData();
+        return PostResource::collection($post
+        ->orderBy($sortOptions["orderBy"],$sortOptions["direction"])
+        ->paginate($limit))->response()->getData();
     }
 
     public function deletePost($post){
