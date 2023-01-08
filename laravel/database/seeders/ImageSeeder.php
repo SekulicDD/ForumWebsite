@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Image;
 use DB;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class ImageSeeder extends Seeder
 {
@@ -12,17 +14,12 @@ class ImageSeeder extends Seeder
      *
      * @return void
      */
-    private $names=["slika1","slika2","slika3"];
-    private $src=["loc/slika1.jpg","loc/slika1.jpg","loc/slika3.jpg"];
+
 
     public function run()
     {
-        for ($i = 0; $i < count($this->names); $i++) {
-            DB::table('images')->insert([
-                'name' => $this->names[$i],
-                'alt' => $this->names[$i],
-                'source' => $this->src[$i],
-            ]);
-        }
+        Image::factory()->count(60)->create();
+       
+    
     }
 }

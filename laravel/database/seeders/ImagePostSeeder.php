@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Image;
+use App\Models\Post;
 use DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class ImagePostSeeder extends Seeder
 {
@@ -15,17 +17,13 @@ class ImagePostSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('image_post')->insert([
-            'image_id' => 1,
-            'post_id' => 2,
-        ]);
-        DB::table('image_post')->insert([
-            'image_id' => 2,
-            'post_id' => 2,
-        ]);
-        DB::table('image_post')->insert([
-            'image_id' => 3,
-            'post_id' => 3,
-        ]);
+        $faker = Faker::create();
+        for ($i = 0; $i < 30; $i++) {
+            DB::table('image_post')->insert([
+                'image_id' => $faker->numberBetween(1, Image::count()),
+                'post_id'=> $faker->unique()->numberBetween(1, Post::count()),
+            ]);
+        }
+       
     }
 }
