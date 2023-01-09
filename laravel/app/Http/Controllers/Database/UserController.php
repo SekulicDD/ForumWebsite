@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public function __construct(UserRepository $userRepository) 
     {
-        $this->middleware('auth:api', ['except' => ['show']]);
+        $this->middleware('auth:api', ['except' => ['show','index']]);
         $this->userRepository = $userRepository;
     }
 
@@ -29,10 +29,16 @@ class UserController extends Controller
     }
 
     public function index(Request $request): JsonResponse{ 
+        $search=null;
+        if($request->filled('search')){
+            $search= trim(strtolower($request->search));
+        }
+
         return response()->json([
             'data' => $this->userRepository->getUsers(
                 $this->includeRelations($request),
-                $this->limitRequest($request))
+                $this->limitRequest($request),
+                $search)
         ]);
     }
 

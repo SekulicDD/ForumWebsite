@@ -46,6 +46,7 @@ class ReplyRepository implements ReplyRepositoryInterface
         $reply->post_id=$replyDetails["post_id"];
         $reply->text_content=$replyDetails["text_content"];
         $reply->save();
+        $reply->post->touch(); //use updated_at for latest reply
         return new ReplyResource($reply);
     } 
 

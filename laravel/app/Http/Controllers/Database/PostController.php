@@ -28,8 +28,9 @@ class PostController extends Controller
 
     private function getSortOptions(Request $request)
     {
+        //use updated_at for latest reply
         $order_by = $request->query('order_by','created_at');
-        if (!in_array($order_by, ['created_at', 'updated_at', 'title'])) {
+        if (!in_array($order_by, ['created_at', 'updated_at', 'title','replies_count'])) {
             $order_by = 'created_at';
         }
 
@@ -44,12 +45,22 @@ class PostController extends Controller
         ];
     }
 
+    private function getSearch(Request $request){
+        if($request->filled('search')){
+            return trim(strtolower($request->search));
+        }
+        return null;
+    }
+
     public function index(Request $request): JsonResponse 
     {     
+       
         return response()->json([
             'data' => $this->postRepository->getAllPosts(
                 $this->limitRequest($request),
-                $this->getSortOptions($request))
+                $this->getSortOptions($request),
+                $this->getSearch($request)
+                )
         ]);
     }
     public function getPostById(Post $post) : JsonResponse 
@@ -72,7 +83,8 @@ class PostController extends Controller
             'data' => $this->postRepository->getCategoryPosts(
                 $categoryId,$includes,
                 $this->limitRequest($request),
-                $this->getSortOptions($request))
+                $this->getSortOptions($request),
+                $this->getSearch($request))
         ]);
     }
 
@@ -87,7 +99,8 @@ class PostController extends Controller
             'data' => $this->postRepository->getUserPosts(
                 $userId,$includes,
                 $this->limitRequest($request),
-                $this->getSortOptions($request))
+                $this->getSortOptions($request),
+                $this->getSearch($request))
         ]);
     }
 

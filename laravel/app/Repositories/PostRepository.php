@@ -10,12 +10,18 @@ use Illuminate\Http\Request;
 class PostRepository implements PostRepositoryInterface 
 {
 
-    public function getAllPosts($limit,array $sortOptions)
+    public function getAllPosts($limit,array $sortOptions,$search=null)
     {
-        return PostResource::collection(Post::with("category")
-        ->with("user")->with("images")
-        ->orderBy($sortOptions["orderBy"],$sortOptions["direction"])
-        ->paginate($limit))->response()->getData();
+        $query=Post::query();
+        $query->with("category")
+        ->withCount("replies")
+        ->with("user")->with("images");
+        if(isset($search)){
+            $query->where('title', 'like', '%'.$search.'%');
+        }
+        $query->orderBy($sortOptions["orderBy"],$sortOptions["direction"]);
+
+        return PostResource::collection($query->paginate($limit))->response()->getData();
     } 
 
     public function getPost($post)
@@ -25,26 +31,32 @@ class PostRepository implements PostRepositoryInterface
         return new PostResource($post);
     }
 
-    public function getCategoryPosts($categoryId,$includes,$limit,array $sortOptions)
+    public function getCategoryPosts($categoryId,$includes,$limit,array $sortOptions,$search=null)
     {
-        $post= Post::where("category_id",$categoryId);
+        $query=Post::query();
+        $query->where("category_id",$categoryId)->withCount("replies");
         foreach ($includes as $value) {
-            $post=$post->with($value);
+            $query->with($value);
         }
-      
-        return PostResource::collection($post
+        if(isset($search)){
+            $query->where('title', 'like', '%'.$search.'%');
+        }
+        return PostResource::collection($query
         ->orderBy($sortOptions["orderBy"],$sortOptions["direction"])
         ->paginate($limit))->response()->getData();
     }
 
-    public function getUserPosts($userId,$includes,$limit,array $sortOptions)
+    public function getUserPosts($userId,$includes,$limit,array $sortOptions,$search=null)
     {
-        $post= Post::where("user_id",$userId);
+        $query= Post::query();
+        $query->where("user_id",$userId)->withCount("replies");
         foreach ($includes as $value) {
-            $post=$post->with($value);
+            $query->with($value);
         }
-      
-        return PostResource::collection($post
+        if(isset($search)){
+            $query->where('title', 'like', '%'.$search.'%');
+        }
+        return PostResource::collection($query
         ->orderBy($sortOptions["orderBy"],$sortOptions["direction"])
         ->paginate($limit))->response()->getData();
     }

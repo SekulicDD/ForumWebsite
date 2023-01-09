@@ -3,9 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Image;
-use DB;
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
 
 class ImageSeeder extends Seeder
 {

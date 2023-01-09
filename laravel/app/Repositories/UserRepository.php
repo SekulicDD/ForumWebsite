@@ -10,13 +10,14 @@ use Illuminate\Support\Arr;
 class UserRepository implements UserRepositoryInterface 
 {
 
-    public function getUsers($includes,$limit)
+    public function getUsers($includes,$limit,$search=null)
     {
         $user= User::query();
 
         foreach ($includes as $value) {
             $user=$user->with($value);
         }
+        $user->where('name', 'like', '%'.$search.'%');
 
         return UserResource::collection($user->paginate($limit));
     }

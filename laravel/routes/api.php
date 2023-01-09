@@ -55,11 +55,11 @@ Route::controller(ReplyController::class)->group(function(){
 });
 
 Route::controller(PostController::class)->group(function(){
-    Route::get('posts/{limit?}/{order_by?}/{direction?}','index');
+    Route::get('posts/{limit?}/{order_by?}/{direction?}/{search?}','index');
     Route::get('posts/{post}','getPostById');
 
-    Route::get('categories/{category}/posts','getCategoryPosts');
-    Route::get('users/{user}/posts','getUserPosts');
+    Route::get('categories/{category}/posts/{search?}','getCategoryPosts');
+    Route::get('users/{user}/posts//{search?}','getUserPosts');
 
     Route::post('posts','store');
     Route::put('posts','update');
@@ -67,7 +67,7 @@ Route::controller(PostController::class)->group(function(){
 });
 
 Route::controller(UserController::class)->group(function(){
-    Route::get('users','index');
+    Route::get('users/{search?}','index');
     Route::get('users/{user}','show');
     Route::put('users/{id}','update');
 });

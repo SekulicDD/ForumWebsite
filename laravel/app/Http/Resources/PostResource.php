@@ -21,6 +21,7 @@ class PostResource extends JsonResource
             'text_content' => $this->text_content,
             'created_at'=>$this->created_at,
             'updated_at'=>$this->updated_at,
+            'replies_count'=>$this->replies_count,
             'category'=>new CategoryResource($this->category),
             'images'=>ImageResource::collection($this->whenLoaded('images')),
             'user'=>new UserResource($this->whenLoaded('user')),
