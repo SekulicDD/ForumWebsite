@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Category} from "../../models/Category";
-import {api} from "../paths";
+import {Category} from "./category.model";
+import { api } from 'src/app/shared/path';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoriesApiServiceService {
+export class CategoriesApiService {
 
   constructor(private http:HttpClient) { }
 

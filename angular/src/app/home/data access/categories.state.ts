@@ -1,15 +1,17 @@
-import {Category} from "../models/Category";
+import {Category} from "./category.model";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
-import {GetCategories} from "../actions/Category.action"
 import {tap} from "rxjs";
 import {Injectable} from "@angular/core";
-import { CategoriesApiServiceService } from "../services/api/categories-api-service.service";
+import { GetCategories } from "./Category.action";
+import { CategoriesApiService } from "./categories-api.service";
 
-export class CategoryStateModel {
+
+
+export class CategoriesStateModel {
   categories: Category[]=[];
 }
 
-@State<CategoryStateModel>({
+@State<CategoriesStateModel>({
   name: 'categories',
   defaults: {
     categories: []
@@ -17,17 +19,17 @@ export class CategoryStateModel {
 })
 
 @Injectable()
-export class CategoryState {
-  constructor(private service:CategoriesApiServiceService) {
+export class CategoriesState {
+  constructor(private service:CategoriesApiService) {
   }
 
   @Selector()
-  static getCategories(state: CategoryStateModel){
+  static getCategories(state: CategoriesStateModel){
     return state.categories;
   }
 
   @Action(GetCategories)
-  get({getState,setState}:StateContext<CategoryStateModel>){
+  get({getState,setState}:StateContext<CategoriesStateModel>){
     return this.service.getCategories().pipe(tap(returnData=>{
       const state = getState();
       setState({

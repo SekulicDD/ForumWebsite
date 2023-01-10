@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Title} from '../../Title';
-import {TITLE} from '../../mock-titles';
+import {Title} from '../../../Title';
+import {TITLE} from  '../../../mock-titles'
 
 
 @Component({

@@ -1,0 +1,42 @@
+Index: angular/src/app/actions/Category.action.ts
+===================================================================
+diff --git a/angular/src/app/actions/Category.action.ts b/angular/src/app/actions/Category.action.ts
+new file mode 100644
+--- /dev/null	
++++ b/angular/src/app/actions/Category.action.ts	
+@@ -0,0 +1,4 @@
++
++export class GetCategories {
++  static readonly type = '[Categories] Get';
++}
+Index: angular/src/app/app-routing.module.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import { NgModule } from '@angular/core';\r\nimport { RouterModule, Routes } from '@angular/router';\r\n\r\nconst routes: Routes = [];\r\n\r\n@NgModule({\r\n  imports: [RouterModule.forRoot(routes)],\r\n  exports: [RouterModule]\r\n})\r\nexport class AppRoutingModule { }\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/angular/src/app/app-routing.module.ts b/angular/src/app/app-routing.module.ts
+--- a/angular/src/app/app-routing.module.ts	
++++ b/angular/src/app/app-routing.module.ts	
+@@ -1,7 +1,19 @@
+ import { NgModule } from '@angular/core';
+ import { RouterModule, Routes } from '@angular/router';
++import { HomePageComponent } from './page-components/home-page/home-page.component';
+ 
+-const routes: Routes = [];
++const routes: Routes = [
++  {
++    path:"",
++    redirectTo:"home",
++    pathMatch:"full"
++  },
++  {
++    path:"home",
++    component:HomePageComponent,
++  },
++ 
++];
+ 
+ @NgModule({
+   imports: [RouterModule.forRoot(routes)],
