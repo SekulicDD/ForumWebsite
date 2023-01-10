@@ -18,6 +18,14 @@ import { CommentFormComponent } from './components/comment-form/comment-form.com
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { HomePageComponent } from './page-components/home-page/home-page.component';
+import { AppRoutingModule } from './app-routing.module';
+import { NgxsModule } from '@ngxs/store';
+import {NgxsLoggerPluginModule} from "@ngxs/logger-plugin";
+import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
+
+import { CategoryState } from './states/Categories.state';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -37,12 +45,24 @@ import { LoginFormComponent } from './components/login-form/login-form.component
     CommentFormComponent,
     RegisterFormComponent,
     LoginFormComponent,
+    HomePageComponent,
   ],
   imports: [
     BrowserModule,
-    FontAwesomeModule
+    HttpClientModule,
+    FontAwesomeModule,
+    AppRoutingModule,
+    NgxsModule.forRoot([
+      CategoryState,
+    ]),
+    NgxsLoggerPluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
+
+
 export class AppModule { }
