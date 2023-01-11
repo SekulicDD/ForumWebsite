@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('image_post', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->foreignId("role_id")->default(2)->constraint();
-            $table->foreignId("image_id")->default(1)->refrences("id")->on("images");
-            $table->rememberToken()->nullable()->default(null);
+            $table->foreignId("image_id")->references("id")->on("images")->onDelete('cascade');
+            $table->foreignId("post_id")->references("id")->on("posts")->onDelete('cascade');
+            $table->unique(['image_id', 'post_id']);
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('image_post');
     }
 };
