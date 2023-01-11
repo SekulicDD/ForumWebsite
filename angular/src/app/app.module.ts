@@ -6,8 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxsModule } from '@ngxs/store';
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
-import { CategoriesState } from './home/data access/categories.state';
 import { LayoutModule } from './shared/layout/layout.module';
+import { CategoriesState } from './shared/services/category/categories.state';
 
 
 

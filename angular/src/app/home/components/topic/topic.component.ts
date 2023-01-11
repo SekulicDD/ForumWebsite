@@ -11,8 +11,7 @@ import {TITLE} from  '../../../mock-titles'
 export class TopicComponent implements OnInit {
   
   titles:Title[]=TITLE;
-
-  @Input() classes:string;
+  
 
   constructor() { }
 

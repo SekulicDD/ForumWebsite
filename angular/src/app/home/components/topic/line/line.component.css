@@ -5,7 +5,20 @@
     font-weight:400;
     padding: 14px;
     border-bottom:1px solid #a8a8a8;
+    transition: all 0.6s cubic-bezier(.39,.58,.57,1);
 }
+
+.topic:hover{
+    transform: scale(1.01);
+    color:#2bcaed;
+    box-shadow: 9px 6px 5px #d8d8d8d8;
+    position: relative;
+    font-size:21px;
+}
+.topic:hover .text{
+    font-size:17px;
+}
+
 .flex{
     display:flex;
     justify-content: space-between;

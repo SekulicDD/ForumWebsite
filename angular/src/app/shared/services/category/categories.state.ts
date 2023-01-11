@@ -2,8 +2,9 @@ import {Category} from "./category.model";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
 import {tap} from "rxjs";
 import {Injectable} from "@angular/core";
-import { GetCategories } from "./Category.action";
+
 import { CategoriesApiService } from "./categories-api.service";
+import { GetCategories } from "./category.action";
 
 
 

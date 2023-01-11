@@ -1,7 +1,0 @@
-<div class="container topic flex shadow" *ngFor="let txt of title.text,let i=index">
-    <span>{{title.text[i]}}</span>
-    <div class="position">
-    <span *ngIf="title.threads" class="border text">{{title.threads[i] + ' threads '}}</span>
-    <span *ngIf="title.comments" class="text width">{{title.comments[i] + ' comments '}}</span>
-   </div>
-</div>

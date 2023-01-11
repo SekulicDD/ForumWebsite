@@ -3,6 +3,7 @@ main{
     width:100%;
     justify-content: space-evenly;
     align-items: center;
+   
 }
 ul{
     list-style: none;
@@ -16,13 +17,7 @@ ul{
     padding:14px;
     margin-top:10px;
 }
-.topic{
-    background-color:white;
-    color:#3f3f3f;
-    font-size:20px;
-    font-weight:400;
-    padding:12px;
-}
+
 .margin{
     margin-top:60px;
 }

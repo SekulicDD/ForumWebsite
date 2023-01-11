@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {Title} from '../../Title';
+import { Component, Input, OnInit } from '@angular/core';
+import {Title} from '../../../../Title';
+
 
 @Component({
   selector: 'app-line',
@@ -8,10 +9,8 @@ import {Title} from '../../Title';
 })
 export class LineComponent implements OnInit {
 
-  @Input() title: Title;
-
   constructor() { }
-
+  @Input() title:Title;
   ngOnInit(): void {
   }
 
