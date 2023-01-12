@@ -16,8 +16,8 @@ class Post extends Model
         'text_content'
     ];
 
-    public function category(){
-        return $this->belongsTo(Category::class);
+    public function sub_category(){
+        return $this->belongsTo(SubCategory::class);
     }
 
     public function user(){

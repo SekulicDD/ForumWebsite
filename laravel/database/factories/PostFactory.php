@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,7 +22,7 @@ class PostFactory extends Factory
         return [
             'title' => $this->faker->sentence,
             'text_content' => $this->faker->paragraph(2),
-            'category_id' => $this->faker->numberBetween(1, Category::count()),
+            'sub_category_id' => $this->faker->numberBetween(1, SubCategory::count()),
             'user_id' => $this->faker->numberBetween(1, User::count()),
             'created_at' => $this->faker->dateTime,
             'updated_at' => $this->faker->dateTime

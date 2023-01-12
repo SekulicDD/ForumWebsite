@@ -13,7 +13,7 @@ class PostRepository implements PostRepositoryInterface
     public function getAllPosts($limit,array $sortOptions,$search=null)
     {
         $query=Post::query();
-        $query->with("category")
+        $query->with("sub_category")
         ->withCount("replies")
         ->with("user")->with("images");
         if(isset($search)){
@@ -34,7 +34,7 @@ class PostRepository implements PostRepositoryInterface
     public function getCategoryPosts($categoryId,$includes,$limit,array $sortOptions,$search=null)
     {
         $query=Post::query();
-        $query->where("category_id",$categoryId)->withCount("replies");
+        $query->where("sub_category_id",$categoryId)->withCount("replies");
         foreach ($includes as $value) {
             $query->with($value);
         }
@@ -68,7 +68,7 @@ class PostRepository implements PostRepositoryInterface
     public function createPost(array $postDetails){
         $post=new Post;
         $post->title=$postDetails["title"];
-        $post->category_id=$postDetails["category_id"];
+        $post->sub_category_id=$postDetails["sub_category_id"];
         $post->user_id=$postDetails["user_id"];
         $post->text_content=$postDetails["text_content"];
         $post->save();
@@ -83,8 +83,8 @@ class PostRepository implements PostRepositoryInterface
             $post->save();
         }
              
-        if(!empty($newDetails["category_id"])){
-            $post->category_id=$newDetails["category_id"];
+        if(!empty($newDetails["sub_category_id"])){
+            $post->sub_category_id=$newDetails["sub_category_id"];
             $post->save();
         }
 

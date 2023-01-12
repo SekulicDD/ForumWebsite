@@ -11,11 +11,12 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function getAllCategories($perPage)
     {  
        
-        return CategoryResource::collection(Category::paginate($perPage))->response()->getData();
+        return CategoryResource::collection(Category::with("sub_categories")->paginate($perPage))->response()->getData();
     } 
 
     public function getCategory($category)
     {
+        //$category->sub_categories=$category->sub_categories;
         return new CategoryResource($category);
     }
 

@@ -12,7 +12,7 @@ class Category extends Model
         'name',
     ];
 
-    public function posts(){
-        return $this->hasMany(Post::class);
+    public function sub_categories(){
+        return $this->hasMany(SubCategory::class);
     }
 }
