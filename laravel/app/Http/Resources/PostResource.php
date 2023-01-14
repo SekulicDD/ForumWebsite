@@ -25,7 +25,7 @@ class PostResource extends JsonResource
             'category'=>new SubCategoryResource($this->whenLoaded('sub_category')),
             'images'=>ImageResource::collection($this->whenLoaded('images')),
             'user'=>new UserResource($this->whenLoaded('user')),
-           
+            'latestReply'=>new ReplyResource(($this->whenLoaded('latestReply')))
         ];
     }
 }

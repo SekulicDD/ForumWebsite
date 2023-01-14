@@ -52,6 +52,13 @@ class PostController extends Controller
         return null;
     }
 
+    private function includeRelations(Request $request,$includeArr) {
+        $queryParams = $request->query();
+        return array_filter($includeArr, function ($param) use ($queryParams) {
+            return array_key_exists($param,$queryParams);
+        });
+    }
+
     public function index(Request $request): JsonResponse 
     {     
        
@@ -72,16 +79,11 @@ class PostController extends Controller
     
     public function getCategoryPosts(Request $request): JsonResponse{
         $categoryId = $request->route('category');
-
-        $includes=[];
-        if($request->query("images"))
-            array_push($includes,"images");
-        if($request->query("user"))
-            array_push($includes,"user");
-        
+ 
         return response()->json([
             'data' => $this->postRepository->getCategoryPosts(
-                $categoryId,$includes,
+                $categoryId,
+                $this->includeRelations($request,['images','user','latestReply']),
                 $this->limitRequest($request),
                 $this->getSortOptions($request),
                 $this->getSearch($request))
@@ -91,13 +93,10 @@ class PostController extends Controller
     public function getUserPosts(Request $request): JsonResponse{
         $userId = $request->route('user');
 
-        $includes=[];
-        if($request->query("images"))
-            array_push($includes,"images");
-        
         return response()->json([
             'data' => $this->postRepository->getUserPosts(
-                $userId,$includes,
+                $userId,
+                $this->includeRelations($request,['images']),
                 $this->limitRequest($request),
                 $this->getSortOptions($request),
                 $this->getSearch($request))

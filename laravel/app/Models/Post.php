@@ -32,4 +32,8 @@ class Post extends Model
         return $this->hasMany(Reply::class);
     }
 
+    public function latestReply() {
+        return $this->hasOne(Reply::class)->latest()->with('user');
+    }
+
 }
