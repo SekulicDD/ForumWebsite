@@ -1,0 +1,11 @@
+#main{
+    display: flex;
+    justify-content: center;
+    padding-top:60px;
+}
+#center{
+    width: 1200px; 
+}
+.half{
+    margin-right: 10px;
+}
