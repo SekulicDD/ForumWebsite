@@ -11,7 +11,7 @@ import { LineComponent } from './components/topic/line/line.component';
   declarations: [TopicComponent,HomeComponent, LineComponent],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
   ]
 })
 export class HomeModule { }

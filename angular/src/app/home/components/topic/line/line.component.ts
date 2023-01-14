@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {Title} from '../../../../Title';
-
+import { SubCategory } from 'src/app/shared/data access/category/category.model';
 
 @Component({
   selector: 'app-line',
@@ -10,7 +9,7 @@ import {Title} from '../../../../Title';
 export class LineComponent implements OnInit {
 
   constructor() { }
-  @Input() title:Title;
+  @Input() sub_categories:SubCategory[];
   ngOnInit(): void {
   }
 

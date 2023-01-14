@@ -1,21 +1,30 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Title} from '../../../Title';
-import {TITLE} from  '../../../mock-titles'
-
+import { Observable } from 'rxjs';
+import { Category } from 'src/app/shared/data access/category/category.model';
 
 @Component({
   selector: 'app-topic',
   templateUrl: './topic.component.html',
-  styleUrls: ['./topic.component.css']
+  styleUrls: ['./topic.component.css'],
+
 })
 export class TopicComponent implements OnInit {
   
-  titles:Title[]=TITLE;
-  
+  @Input() categories$:Observable<Category[]>;
+
+  notActive = new Set<number>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  toggleDropdown(id: number) {
+    if(this.notActive.has(id)) 
+      this.notActive.delete(id);
+    else 
+      this.notActive.add(id);
+  }
+
 
 }

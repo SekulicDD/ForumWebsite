@@ -1,11 +1,12 @@
 .topic{
+    
     background-color:white;
     color:#3f3f3f;
     font-size:20px;
     font-weight:400;
     padding: 14px;
     border-bottom:1px solid #a8a8a8;
-    transition: all 0.6s cubic-bezier(.39,.58,.57,1);
+    transition: all 0.6s cubic-bezier(.39,.58,.57,1); 
 }
 
 .topic:hover{

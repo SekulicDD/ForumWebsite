@@ -1,8 +1,12 @@
-<main>
-<div class="container margin" >
-    <div *ngFor="let title of titles" [title]="title">
-        <p class="title shadow">{{title.title}}</p>
-        <app-line [title]="title"></app-line>
+<main >
+<div *ngIf="categories$ | async as categories" class="container margin" >
+    <div *ngFor="let category of categories">
+        <p (click)="toggleDropdown(category.id)" class="title shadow">{{category.name}} 
+            <i *ngIf="!notActive.has(category.id)" class="fa-solid fa-angle-down"></i>
+            <i *ngIf="notActive.has(category.id)" class="fa-solid fa-angle-up"></i>
+        </p>
+        <app-line *ngIf="!notActive.has(category.id)"  [sub_categories]="category.sub_categories"></app-line>  
+   
         <div class="break">&nbsp;</div>
     </div>
 </div>

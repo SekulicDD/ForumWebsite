@@ -1,8 +1,8 @@
 
-<div class="container topic flex shadow" *ngFor="let txt of title.text,let i=index">
-    <span>{{title.text[i]}}</span>
+<div class="container topic flex shadow" *ngFor="let cat of sub_categories">
+    <span>{{cat.name}}</span>
     <div class="position">
-        <span *ngIf="title.threads" class="border text">{{title.threads[i] + ' threads '}}</span>
-        <span *ngIf="title.comments" class="text width">{{title.comments[i] + ' comments '}}</span>
+        <!-- <span class="border text">{{cat.posts_count + ' posts '}}</span> -->
+        <span class="text width">{{cat.posts_count  + ' posts '}}</span>
    </div>
 </div>
