@@ -1,0 +1,36 @@
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    width:100%;
+    height:60px;
+}
+#numbers{
+    display: inline-block;
+}
+
+.bm{
+    margin-top:10px;
+    margin-bottom:0px;
+    height: 100%;
+}
+
+button{
+    padding:5px 10px;
+    margin-right:5px;
+    box-shadow: 4px 4px #D9D9D9;
+    transition:0.3s ease-in-out;
+}
+
+button:hover{
+    box-shadow: 9px 6px 5px #d8d8d8d8;
+    position: relative;
+    cursor: pointer;
+    color:#2bcaed;
+    border:1px solid #2bcaed;
+}
+
+#morePages{
+    font-size:21px;
+    padding: 5px;
+}
