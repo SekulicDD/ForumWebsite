@@ -1,0 +1,18 @@
+<div id="cateogoryMenu" *ngIf="categories$ | async as categories">
+    <ul>
+        <ng-container *ngFor="let cat of categories">
+            <li>
+                {{cat.name}} <i class="fa-solid fa-angle-down"></i>   
+                <div class="dropdown">
+                    <ul>
+                        <li *ngFor="let sub of cat.sub_categories" 
+                        routerLink='/posts/{{sub.id}}'>
+                        <a>{{sub.name}}</a>
+                    </li>
+                       
+                    </ul>       
+                </div>      
+            </li>
+        </ng-container>      
+    </ul>
+</div>

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ThreadLineComponent } from './thread-line.component';
+import { CategoryMenuComponent } from './category-menu.component';
 
-describe('ThreadLineComponent', () => {
-  let component: ThreadLineComponent;
-  let fixture: ComponentFixture<ThreadLineComponent>;
+describe('CategoryMenuComponent', () => {
+  let component: CategoryMenuComponent;
+  let fixture: ComponentFixture<CategoryMenuComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ThreadLineComponent ]
+      declarations: [ CategoryMenuComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ThreadLineComponent);
+    fixture = TestBed.createComponent(CategoryMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
