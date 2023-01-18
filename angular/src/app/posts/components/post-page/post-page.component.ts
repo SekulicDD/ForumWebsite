@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, Subject, Subscription, takeUntil, tap } from 'rxjs';
 import { GetPostsByCategory } from 'src/app/shared/data access/post/post.action';
 import { Post, PostsOrderBy, PostsQueryParams } from 'src/app/shared/data access/post/post.model';
 import { ActivatedRoute } from '@angular/router';
@@ -13,27 +13,53 @@ import { Direction } from 'src/app/shared/data access/sortable.interface';
 })
 export class PostPageComponent implements OnInit {
 
-  //DODATI PAGINACIJU
+  //  search, post url direktno ne radi
 
   posts$:Observable<Post[]>;
+  meta$:Observable<Meta>;
+
   params:PostsQueryParams={
     latestReply:true,
     user:true,
     page:1,
-    limit:6,
-    order_by:PostsOrderBy.Title,
-    direction:Direction.Ascending,
+    limit:5,
+    order_by:PostsOrderBy.Date,
+    direction:Direction.Descending,
   };
 
+  total:number;
+  private categoryId:number;
+  private metaSub: Subscription;
+  private catSub:Subscription;
+  
   constructor(private store:Store,private route: ActivatedRoute) { 
     this.posts$=this.store.select(state=>state.posts.posts);
+    this.meta$=this.store.select(state=>state.posts.meta);
+  }
+
+  getPage(page:number):void
+  {
+    this.params.page=page;
+    this.store.dispatch(new GetPostsByCategory(this.categoryId,this.params));
+    this.metaSub=this.meta$.subscribe(meta=>this.total=meta.total);
   }
 
   ngOnInit(): void {
-    let id = this.route.snapshot.paramMap.get('catId');
-    if(id!=null)
-      this.store.dispatch(new GetPostsByCategory(parseInt(id),this.params));
+    let id;
+    this.catSub=this.route.paramMap.subscribe(params=>{
+      id=params.get("catId");
+      if(id==null)
+        id='1';
+      if(parseInt(id)!=this.categoryId){
+        this.categoryId= parseInt(id);
+        this.getPage(1);
+      }
+    });
+  }
 
+  ngOnDestroy() {
+    this.metaSub.unsubscribe();
+    this.catSub.unsubscribe();
   }
 
 }

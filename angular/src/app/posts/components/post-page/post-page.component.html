@@ -1,2 +1,16 @@
-<app-thread [posts$]="posts$"></app-thread>
-<app-pagination></app-pagination>
+<main>
+    <app-category-menu></app-category-menu>
+    <div class="container" *ngIf="posts$ | async as posts">
+        <p class="title shadow">Treads</p>
+        <div *ngFor="let post of posts | paginate:{
+        itemsPerPage: params.limit,
+        currentPage: params.page,
+        totalItems: total }">
+        <app-thread-line [post]="post"></app-thread-line>
+        </div>
+        <pagination-template #p="paginationApi" (pageChange)="getPage($event)">
+            <app-pagination-template  [paginationData]="p"></app-pagination-template>
+        </pagination-template>
+        <div>&nbsp;</div>
+    </div>
+</main>
