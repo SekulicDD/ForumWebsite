@@ -5,6 +5,7 @@
     border:none;
 }
 .btn2{
+    margin-top: 2px;
     text-align: center;
     padding-inline:20px;
     padding-block: 10px;
@@ -23,6 +24,14 @@
 button{
     border:none;
 }
+.hover{
+    transition: all 1s ease-out;
+}
 .hover:hover{
-    filter:brightness(95%);
+    background-color: #2bc9ed3c;
+}
+
+.is-active{
+    background-color:#2bcaed;
+    color:white;
 }

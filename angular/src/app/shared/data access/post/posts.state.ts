@@ -7,13 +7,14 @@ import { tap } from "rxjs";
 
 export class PostsStateModel{
     posts:Post[];
-    meta?:Meta;
+    meta:Meta;
 }
 
 @State<PostsStateModel>({
     name:'posts',
     defaults:{
         posts:[],
+        meta:{current_page:1,last_page:1,per_page:1,total:1,from:1,to:1,path:"default"}
     },
 })
 

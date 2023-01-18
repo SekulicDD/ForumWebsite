@@ -10,12 +10,20 @@ const routes: Routes = [
     children:[
       {
         path:'',
-        pathMatch:'full',
+        pathMatch:'prefix',
         redirectTo:'home',
       },
       {
-        path:'',
+        path:'home',
         loadChildren: () => import('../../home/home.module').then(m => m.HomeModule)
+      },
+      {
+        path:'login',
+        loadChildren: () => import('../../login/login.module').then(m => m.LoginModule)
+      },
+      {
+        path:'posts/:catId',
+        loadChildren: () => import('../../posts/posts.module').then(m => m.PostsModule)
       },
     ]
   },

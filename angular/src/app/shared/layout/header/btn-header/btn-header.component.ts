@@ -11,7 +11,8 @@ export class BtnHeaderComponent implements OnInit {
   @Input() color:string;
   @Input()  fontcolor:string;
   @Input() classes:string;
-
+  @Input() url:string;
+  
   constructor() { }
 
   ngOnInit(): void {
