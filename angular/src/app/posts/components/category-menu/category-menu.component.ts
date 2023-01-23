@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { GetCategories } from 'src/app/shared/data access/category/category.action';
-import { Category } from 'src/app/shared/data access/category/category.model';
+import { Category, SubCategory } from 'src/app/shared/data access/category/category.model';
 
 @Component({
   selector: 'app-category-menu',
@@ -12,14 +12,23 @@ import { Category } from 'src/app/shared/data access/category/category.model';
 })
 export class CategoryMenuComponent implements OnInit {
 
-  constructor(private store:Store ) {
+  constructor(private store:Store,private route:ActivatedRoute) {
     this.categories$=this.store.select(state=>state.categories.categories);
   }
 
   categories$:Observable<Category[]>;
+  categoryId:number=1;
 
   ngOnInit(): void {
     this.store.dispatch(GetCategories);
+    let tmp =this.route.snapshot.paramMap.get("catId");
+    if(tmp != null)
+      this.categoryId=parseInt(tmp);
   }
+
+  changeActiveCat(id:number){
+    this.categoryId=id;
+  }
+
 
 }

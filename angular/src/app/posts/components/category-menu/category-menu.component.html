@@ -5,8 +5,8 @@
                 {{cat.name}} <i class="fa-solid fa-angle-down"></i>   
                 <div class="dropdown">
                     <ul>
-                        <li *ngFor="let sub of cat.sub_categories" 
-                        routerLink='/posts/{{sub.id}}'>
+                        <li *ngFor="let sub of cat.sub_categories" (click)="changeActiveCat(sub.id)"
+                        routerLink='/posts/{{sub.id}}' [class.activeCat]="sub.id==categoryId" >
                         <a>{{sub.name}}</a>
                     </li>
                        

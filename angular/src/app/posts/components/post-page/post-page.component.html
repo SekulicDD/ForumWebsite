@@ -1,5 +1,9 @@
 <main>
-    <app-category-menu></app-category-menu>
+    <div id="options">
+        <app-category-menu ></app-category-menu>
+        <app-sort-by (emmitSortOrder)="orderChange($event)" (emmitDirectionOrder)="directionChange($event)"></app-sort-by>
+    </div>
+
     <div class="container" *ngIf="posts$ | async as posts">
         <p class="title shadow">Treads</p>
         <div *ngFor="let post of posts | paginate:{

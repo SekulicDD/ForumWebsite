@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { map, Observable, Subject, Subscription, takeUntil, tap } from 'rxjs';
+import { Observable, Subscription} from 'rxjs';
 import { GetPostsByCategory } from 'src/app/shared/data access/post/post.action';
 import { Post, PostsOrderBy, PostsQueryParams } from 'src/app/shared/data access/post/post.model';
 import { ActivatedRoute } from '@angular/router';
@@ -13,7 +13,7 @@ import { Direction } from 'src/app/shared/data access/sortable.interface';
 })
 export class PostPageComponent implements OnInit {
 
-  //  search, post url direktno ne radi
+  //  search
 
   posts$:Observable<Post[]>;
   meta$:Observable<Meta>;
@@ -31,7 +31,7 @@ export class PostPageComponent implements OnInit {
   private categoryId:number;
   private metaSub: Subscription;
   private catSub:Subscription;
-  
+
   constructor(private store:Store,private route: ActivatedRoute) { 
     this.posts$=this.store.select(state=>state.posts.posts);
     this.meta$=this.store.select(state=>state.posts.meta);
@@ -42,6 +42,16 @@ export class PostPageComponent implements OnInit {
     this.params.page=page;
     this.store.dispatch(new GetPostsByCategory(this.categoryId,this.params));
     this.metaSub=this.meta$.subscribe(meta=>this.total=meta.total);
+  }
+
+  orderChange(order:PostsOrderBy){
+    this.params.order_by=order;
+    this.getPage(1);
+  }
+
+  directionChange(direction:Direction){
+    this.params.direction=direction;
+    this.getPage(1);
   }
 
   ngOnInit(): void {

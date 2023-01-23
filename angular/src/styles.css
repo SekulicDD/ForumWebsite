@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap');
-
+@import '~@fortawesome/fontawesome-free/css/all.css';
 /* Box sizing rules */
 *,
 *::before,

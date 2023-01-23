@@ -1,15 +1,14 @@
-#cateogoryMenu {
+
+#sortBy {
     width: 600px;
     margin-top:30px;
     text-align: center;
+    display: flex;
+    justify-content:flex-end;
 }
 
-#cateogoryMenu ul{
-    display: flex;
-    justify-content:flex-start;
+#sortBy ul{
     list-style-type: none;
-}
-#cateogoryMenu ul li{
     min-width:160px;
     margin-right: 5px;
     font-size:18px;
@@ -21,40 +20,36 @@
     text-align: left;
 }
 
-#cateogoryMenu ul > li:hover{
-    background-color: #2bcaed !important;
-}
 
-#cateogoryMenu > ul > li:hover .dropdown {
+#sortBy > ul:hover .dropdown {
     opacity: 1;
     display: block;
 }
 
+#sortBy ul li:hover{
+    background-color: #2bcaed !important;
+}
+
+
 .dropdown {
     transition: 0.5s all ease-in;
-    display: none;
     opacity: 0;
     width: 100%;
     position: absolute;
     top: 41px;
     left:0;
-}
-
-.dropdown ul{
     display: flex;
     justify-content: center;
     flex-direction: column;
     border: 1px solid #d8d8d8;;
 }
 
+
 .dropdown li{
+    transition: 0.5s all ease-in;
+    padding: 8px 20px;
     color: black !important;
     background-color: #f6f6f6 !important;
     width: 100% !important;
     font-size: 15px !important;
-}
-
-.activeCat a{
-    font-weight: 900;
-    text-decoration: underline;
 }

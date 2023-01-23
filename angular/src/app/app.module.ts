@@ -7,8 +7,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxsModule } from '@ngxs/store';
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
 import { LayoutModule } from './shared/layout/layout.module';
-import { CategoriesState } from './shared/services/category/categories.state';
-
+import { CategoriesState } from './shared/data access/category/categories.state';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PostsState } from './shared/data access/post/posts.state';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -17,17 +19,23 @@ import { CategoriesState } from './shared/services/category/categories.state';
   ],
   imports: [
     LayoutModule,
+    NgxPaginationModule,
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FontAwesomeModule,
     AppRoutingModule,
     NgxsModule.forRoot([
       CategoriesState,
+      PostsState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+    NgxPaginationModule
+  ]
 })
 
 

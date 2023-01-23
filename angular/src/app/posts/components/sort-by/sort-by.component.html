@@ -1,0 +1,22 @@
+<div id="sortBy">
+    <ul>
+        <p>{{order}} <i class="fa-solid fa-angle-down"></i> </p>
+        <div class="dropdown">
+            <li (click)="emmitOrder(date)">Date</li>
+            <li (click)="emmitOrder(title)">Title</li>
+            <li (click)="emmitOrder(comments)">Comments count</li>
+            <li (click)="emmitOrder(latestComment)">Latest comment</li>
+        </div>
+    </ul>
+
+    <ul>
+        <p>{{direction}} <i class="fa-solid fa-angle-down"></i> </p>
+        <div class="dropdown">
+            <li (click)="emmitDirection(desc)">Descending</li>
+            <li (click)="emmitDirection(asc)">Ascending</li>
+        </div>
+    </ul>
+
+
+</div>
+
