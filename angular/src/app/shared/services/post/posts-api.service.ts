@@ -18,4 +18,12 @@ export class PostsApiService {
 
     return this.http.get<PostsResponse>(url,{params:httpParams});
   }
+
+  getPostById(postId:number){
+    const url=api.url+'/posts/'+postId;
+    return this.http.get<any>(url).pipe(map(response=>{
+      const post=response.data;
+      return post;
+    }));
+  }
 }
