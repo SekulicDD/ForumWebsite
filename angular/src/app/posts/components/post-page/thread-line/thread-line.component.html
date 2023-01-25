@@ -1,5 +1,5 @@
-<div class="container topic flex shadow hover" >
-    <img class="image1" src="{{post.user.image?.source}}" alt="">
+<div class="container topic flex shadow hover" routerLink="/post/{{post.id}}">
+    <img class="image1" src="{{post.user.image.source}}" alt="">
     <div class="info">
         <p class="f-n-18 f-c-grey">{{post.title}}</p>
         <span class="f-n-14 f-c-grey name">{{post.user.name}}</span>

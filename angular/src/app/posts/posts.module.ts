@@ -3,29 +3,26 @@ import { CommonModule } from '@angular/common';
 
 import { PostsRoutingModule } from './posts-routing.module';
 import { PostPageComponent } from './components/post-page/post-page.component';
-import { DateAsAgoPipe } from '../shared/pipes/date-as-ago.pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationTemplateComponent } from '../shared/components/pagination-template/pagination-template.component';
 import { ThreadLineComponent } from './components/post-page/thread-line/thread-line.component';
 import { CategoryMenuComponent } from './components/category-menu/category-menu.component';
-import { RouterModule } from '@angular/router';
 import { SortByComponent } from './components/sort-by/sort-by.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [
     PostPageComponent,
     ThreadLineComponent,
-    DateAsAgoPipe,
     PaginationTemplateComponent,
     CategoryMenuComponent,
-    SortByComponent
+    SortByComponent,
   ],
   imports: [
-    CommonModule,
     PostsRoutingModule,
     NgxPaginationModule,
-    RouterModule
+    SharedModule,
   ]
 })
 export class PostsModule { }

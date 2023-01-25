@@ -11,7 +11,8 @@ import { CategoriesState } from './shared/data access/category/categories.state'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostsState } from './shared/data access/post/posts.state';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { CommentComponent } from './shared/components/comment/comment.component';
+import { RepliesState } from './shared/data access/reply/replies.state';
 
 @NgModule({
   declarations: [
@@ -27,14 +28,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AppRoutingModule,
     NgxsModule.forRoot([
       CategoriesState,
-      PostsState
+      PostsState,
+      RepliesState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],
   exports: [
-    NgxPaginationModule
+    NgxPaginationModule,
   ]
 })
 

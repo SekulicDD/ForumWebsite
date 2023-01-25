@@ -1,0 +1,10 @@
+
+<main>
+    <app-post-details [post$]="post$"></app-post-details>
+    <div *ngIf="replies$ |async  as replies">
+        <div *ngFor="let reply of replies" id="commentContainer">
+            <app-comment [reply]="reply"></app-comment>
+        </div>
+    </div>
+</main>
+
