@@ -1,17 +1,11 @@
-main{
-    display: flex;
-    width:100%;
-    margin-top:20px;
-    justify-content: center;
-    align-items: center;
-}
+
 .topic{
     background-color:white;
     color:#3f3f3f;
     font-size:20px;
     font-weight:400;
     padding: 10px;
-    margin-top:28px;
+    margin-top:15px;
 }
 .flex{
     display:flex;

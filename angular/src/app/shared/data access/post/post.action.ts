@@ -5,3 +5,8 @@ export class GetPostsByCategory {
     constructor(public categoryId:number,public includes:PostsQueryParams={}){}
 }
   
+export class GetPostById {
+    static readonly type = '[Posts] Get post by id';
+    constructor(public id:number){}
+}
+  

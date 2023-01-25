@@ -17,6 +17,7 @@ export interface Post{
     replies_count:number;
     latestReply?:Reply;
     images?:Image[];
+    replies?:Reply[];
 }
 
 export interface PostsResponse{

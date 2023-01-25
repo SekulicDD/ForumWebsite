@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {Comment} from '../../Comment';
-import { COMMENT } from 'src/app/mock-comments';
+import { Component, Input, OnInit } from '@angular/core';
+import { Reply } from '../../data access/reply/reply.model';
 
 @Component({
   selector: 'app-comment',
@@ -9,10 +8,9 @@ import { COMMENT } from 'src/app/mock-comments';
 })
 export class CommentComponent implements OnInit {
 
-  comments:Comment[]=COMMENT;
-
-
   constructor() { }
+
+  @Input() reply:Reply;
 
   ngOnInit(): void {
   }

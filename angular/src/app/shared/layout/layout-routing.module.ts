@@ -30,6 +30,10 @@ const routes: Routes = [
         path:'posts/:catId',
         loadChildren: () => import('../../posts/posts.module').then(m => m.PostsModule)
       },
+      {
+        path:'post/:id',
+        loadChildren: () => import('../../post-details/post-details.module').then(m => m.PostDetailsModule)
+      },
     ]
   },
  
