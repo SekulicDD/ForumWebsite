@@ -55,8 +55,8 @@ Route::controller(ReplyController::class)->group(function(){
 });
 
 Route::controller(PostController::class)->group(function(){
-    Route::get('posts/{limit?}/{order_by?}/{direction?}/{search?}','index');
     Route::get('posts/{post}','getPostById');
+    Route::get('posts/{limit?}/{order_by?}/{direction?}/{search?}','index');
 
     Route::get('categories/{category}/posts/{search?}','getCategoryPosts');
     Route::get('users/{user}/posts//{search?}','getUserPosts');

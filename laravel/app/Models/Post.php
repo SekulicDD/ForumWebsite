@@ -21,7 +21,7 @@ class Post extends Model
     }
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->with('image');
     }
 
     public function images(){
@@ -33,7 +33,7 @@ class Post extends Model
     }
 
     public function latestReply() {
-        return $this->hasOne(Reply::class)->latest()->with('user');
+        return $this->hasOne(Reply::class)->latest()->with('user.image');
     }
 
 }

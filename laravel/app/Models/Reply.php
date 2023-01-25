@@ -18,7 +18,7 @@ class Reply extends Model
         return $this->belongsTo(Post::class);
     }
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->with("image");
     }
     public function reply(){
         return $this->belongsTo(Reply::class);
