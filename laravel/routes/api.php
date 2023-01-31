@@ -24,15 +24,26 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::controller(AuthController::class)->group(function (){
-    Route::post('login', 'login');
-    Route::post('register', 'register');
-    Route::post('logout', 'logout');
-    Route::post('refresh', 'refresh');
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+],function($router){
+
+    Route::controller(AuthController::class)->group(function (){
+        Route::post('login', 'login');
+        Route::post('register', 'register');
+        Route::post('logout', 'logout');
+        Route::post('refresh', 'refresh');
+        Route::get('/user-profile','userProfile');
+    });
+    
+    Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
+    Route::post('/change-password', [ResetPasswordController::class, 'changePassword']);
 });
 
-Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
-Route::post('/change-password', [ResetPasswordController::class, 'changePassword']);
+
+
+
 
 Route::controller(CategoryController::class)->group(function(){
     Route::get('categories/{limit?}','index');

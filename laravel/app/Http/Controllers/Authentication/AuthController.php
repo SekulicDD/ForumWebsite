@@ -49,7 +49,6 @@ class AuthController extends Controller
 
     public function register(Request $request) {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|min:6',
         ]);
@@ -57,7 +56,6 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 400);
         }
         $user = User::create([
-            'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -74,10 +72,10 @@ class AuthController extends Controller
         ]);
     }
 
-    // public function userProfile()
-    // {
-    //     return response()->json(auth()->user());
-    // }
+    public function userProfile()
+    {
+        return response()->json(auth()->user());
+    }
 
     public function logout()
     {
