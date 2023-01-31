@@ -8,8 +8,10 @@
     <app-btn-header url="/members" text="Members" classes="f-titles bg-white f-c-grey btn hover"></app-btn-header>
     <app-btn-header text="Rules" classes="f-titles bg-white f-c-grey btn hover"></app-btn-header>
     <div class="mright">
-    <app-btn-header url="/login" text="Log-in" classes="f-n-18 bg-white f-c-grey btn2 hover"></app-btn-header>
-    <app-btn-header url="/register" text="Sign up" classes="f-n-18 bg-white f-c-grey btn2 hover"></app-btn-header>
+    <app-btn-header *ngIf="!(isAuthenticated$ | async)" url="/login" text="Log-in" classes="f-n-18 bg-white f-c-grey btn2 hover"></app-btn-header>
+    <app-btn-header *ngIf="!(isAuthenticated$ | async)" url="/register" text="Sign up" classes="f-n-18 bg-white f-c-grey btn2 hover"></app-btn-header>
+    <app-btn-header *ngIf="isAuthenticated$ | async" url="/profile" text="Profile" classes="f-n-18 bg-white f-c-grey btn2 hover"></app-btn-header>
+    <app-log-out-button  *ngIf="isAuthenticated$ | async" url="/home" text="Log-Out" classes="f-n-18 bg-white f-c-grey btn2 hover"></app-log-out-button>
     </div>
     </div>
     <div class="break">&nbsp;</div>

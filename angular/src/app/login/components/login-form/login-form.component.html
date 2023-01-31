@@ -1,22 +1,25 @@
 
 <div class="container-small bg-white f-c-grey f-n-18 shadow">
-   
-    <div class="flex">
-        <div class="flex-col border">
-            <div class="m-p">
-                <label for="username">Username or email:</label>
+    <form [formGroup]="loginForm" (ngSubmit)="submitHandler()">
+        <div class="flex">
+            <div class="flex-col border">
+                <div class="m-p">
+                    <label for="email">Email:</label>
+                </div>
+                <div class="m-p flex-col">
+                    <label for="password">Password:</label>
+                    <a href="#" class="f-c-blue f-n-16">Forgot your password?</a>
+                </div>
             </div>
-            <div class="m-p flex-col">
-                <label for="password">Password:</label>
-                <a href="#" class="f-c-blue f-n-16">Forgot your password?</a>
+            <div class="flex-col">
+                <input type="text" class="form" name="email" formControlName="email">
+                <span class="error" *ngIf="email?.invalid && email?.touched">Your email does not look right</span>
+                <input type="password" class="form" name="password" formControlName="password">
+                <span class="error" *ngIf="password?.invalid && password?.touched">Your password does not look right</span>
             </div>
         </div>
-        <div class="flex-col">
-            <input type="text" class="form" name="username">
-            <input type="text" class="form" name="password">
+        <div class="m-p flex-col">
+            <button [disabled]="loginForm.invalid" id="login-button" class="button2 f-c-white f-bold bg-blue">Log in</button>
         </div>
-    </div>
-    <div class="m-p flex-col">
-        <button id="register-button" class="button2 f-c-white f-bold bg-blue">Log in</button>
-    </div>
+    </form>
 </div>

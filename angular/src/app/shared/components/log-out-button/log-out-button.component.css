@@ -1,0 +1,37 @@
+.btn{
+    text-align: center;
+    padding-inline:50px;
+    padding-block: 10px;
+    border:none;
+}
+.btn2{
+    margin-top: 2px;
+    text-align: center;
+    padding-inline:20px;
+    padding-block: 10px;
+    border:none;
+}
+.num{
+    border:1px solid #a8a8a8;
+    padding-inline:8px;
+    padding-block:2px;
+    background-color: white;
+    text-align: center;
+}
+.mright{
+    margin-left:auto;
+}
+button{
+    border:none;
+}
+.hover{
+    transition: all 1s ease-out;
+}
+.hover:hover{
+    background-color: #2bc9ed3c;
+}
+
+.is-active{
+    background-color:#2bcaed;
+    color:white;
+}

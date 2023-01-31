@@ -54,3 +54,7 @@ input{
 span{
     margin-block:10px;
 }
+
+.error{
+    color:red;
+}
