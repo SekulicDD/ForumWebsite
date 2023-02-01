@@ -1,32 +1,37 @@
 
 <div class="container-small bg-white f-c-grey f-n-18 shadow">
-    <div class="flex">
-    <div class="flex-col border">
-    <div class="m-p">
-        <label for="username">Username:</label>
-        <h2 class="f-c-lightgrey f-n-16">Required</h2>
-    </div>
-    <div class="m-p">
-        <label for="email">Email:</label>
-        <h2 class="f-c-lightgrey f-n-16">Required</h2>
-    </div>
-    <div class="m-p">
-        <label for="password">Password:</label>
-        <h2 class="f-c-lightgrey f-n-16">Required</h2>
-    </div>
-    <div class="m-p">
-        <label for="con-password">Confirm password:</label>
-        <h2 class="f-c-lightgrey f-n-16">Required</h2>
-    </div>
-    </div>
-    <div class="flex-col">
-        <input type="text" class="form" name="username">
-        <input type="text" class="form" name="email">
-        <input type="text" class="form" name="password">
-        <input type="text" class="form" name="con-password">  
-    </div>
-    </div>
-    <div class="m-p flex">
-    <button id="register-button" class="buttons f-c-white f-bold bg-blue">Register</button>
-    </div>
+    <form method="post" [formGroup]="registerForm" (ngSubmit)="handleRegister()">
+        <div class="flex">
+        <div class="flex-col border">
+            <div class="m-p">
+                <label for="username">Username:</label>
+                <h2 class="f-c-lightgrey f-n-16">Required</h2>
+            </div>
+            <div class="m-p">
+                <label for="email">Email:</label>
+                <h2 class="f-c-lightgrey f-n-16">Required</h2>
+            </div>
+            <div class="m-p">
+                <label for="password">Password:</label>
+                <h2 class="f-c-lightgrey f-n-16">Required</h2>
+            </div>
+            <div class="m-p">
+                <label for="passwordConf">Confirm password:</label>
+                <h2 class="f-c-lightgrey f-n-16">Required</h2>
+            </div>
+        </div>
+        <div class="flex-col">
+            <input type="text" class="form" name="username" formControlName="username">
+            <span class="error" *ngIf="username?.invalid && username?.touched">Username is required!</span>
+            <input type="email" class="form" name="email" formControlName="email">
+            <span class="error" *ngIf="email?.invalid && email?.touched">Your email does not look right!</span>
+            <input type="password" class="form" name="password" formControlName="password">
+            <input type="password" class="form" name="passwordConf" formControlName="passwordConf"> 
+            <span class="error" *ngIf="passwordConf?.invalid && passwordConf?.touched">Passwords are not same!</span>
+        </div>
+        </div>
+        <div class="m-p flex">
+            <button [disabled]="registerForm.invalid" id="register-button" class="buttons f-c-white f-bold bg-blue">Register</button>
+        </div>
+    </form>
 </div>

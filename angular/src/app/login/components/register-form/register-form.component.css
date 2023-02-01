@@ -51,3 +51,7 @@ input{
 .buttons:hover{
     background-color:#16a9c9;
 }
+
+.error{
+    color:red;
+}

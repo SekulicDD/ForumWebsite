@@ -39,6 +39,6 @@ export class AuthService {
 export interface UserAuth {
   email: string ;
   password: string;
-  password_confirmation?: string;
+  name?:string;
 }
 

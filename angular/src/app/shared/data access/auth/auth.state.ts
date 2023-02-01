@@ -3,7 +3,7 @@ import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
 import { AuthService } from "../../services/auth/auth.service";
 import { User } from "../user/user.model";
-import { Login, Logout } from "./auth.action";
+import { Login, Logout, Register } from "./auth.action";
 
 interface AuthStateModel {
     token:string | null;
@@ -52,12 +52,15 @@ export class AuthState {
   
     @Action(Logout)
     logout(ctx: StateContext<AuthStateModel>) {
-      const state = ctx.getState();   
       ctx.setState({
         token: null,
         user: null
       });
-     
+    }
+
+    @Action(Register)
+    register(ctx: StateContext<AuthStateModel>,action:Register) {
+      return this.service.register(action.userAuth);
     }
   
 }
