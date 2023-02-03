@@ -9,21 +9,20 @@ export class TokenService {
   constructor() { }
 
   private issuer = {
-    login: api.url+'/login',
-    register: api.url+'/register',
+    login: api.url+'/auth/login',
+    register: api.url+'/auth/register',
   };
 
   getToken() {
-    return localStorage.getItem('auth_token');
+    return localStorage.getItem('auth.token');
   }
 
-  payload(token: any) {
+  private payload(token: string) {
     const payload = token.split('.')[1];
-    return JSON.parse(payload);
+    return JSON.parse(atob(payload));
   }
 
-  isValidToken() {
-    const token = this.getToken();
+  isValidToken(token:string | null) : boolean {
     if (token) {
       const payload = this.payload(token);
       if (payload) {
@@ -33,8 +32,9 @@ export class TokenService {
     return false;
   }
 
-  isLoggedIn() {
-    return this.isValidToken();
+  getIdFromToken(token:string):number{
+    const payload = this.payload(token);
+    return payload.sub;
   }
 
 }

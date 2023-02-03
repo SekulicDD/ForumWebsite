@@ -7,3 +7,9 @@ export interface User{
     created_at:Date;
     image:Image;
 }
+
+export interface UserQueryParams{
+    includeImage?: boolean;
+    includeRole?: boolean;
+    includeReplies?: boolean;
+}

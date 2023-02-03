@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Select } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AuthState } from '../../data access/auth/auth.state';
 
@@ -10,9 +10,9 @@ import { AuthState } from '../../data access/auth/auth.state';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store:Store) { }
 
-  @Select(AuthState.isAuthenticated) isAuthenticated$:Observable<boolean>;
+  isAuth$ :Observable<boolean> = this.store.select(AuthState.isAuthenticated);
 
   ngOnInit(): void {
   }

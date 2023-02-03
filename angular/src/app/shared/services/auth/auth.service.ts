@@ -9,7 +9,7 @@ import { TokenService } from './token.service';
 })
 export class AuthService {
 
-  constructor(private http:HttpClient,private tokenService:TokenService) { }
+  constructor(private http:HttpClient) { }
 
   register(user:UserAuth) {
     return this.http.post(api.url+'/auth/register', user);
@@ -19,12 +19,12 @@ export class AuthService {
     return this.http.post(api.url+'/auth/login', user);
   }
 
-  userProfile(){
-    const token = this.tokenService.getToken();
-    if(token)
-      return this.http.get<User>(api.url+'/auth/user-profile');
-    else return undefined;
-  }
+  // userProfile(){
+  //   const token = this.tokenService.getToken();
+  //   if(token)
+  //     return this.http.get<User>(api.url+'/auth/user-profile');
+  //   else return null;
+  // }
 
   resetPassword(data:UserAuth){
     return this.http.post<any>(api.url+'/auth/reset-password', data);

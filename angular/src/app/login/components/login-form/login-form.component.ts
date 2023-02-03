@@ -12,9 +12,9 @@ import { UserAuth } from "../../../shared/services/auth/auth.service";
 })
 export class LoginFormComponent implements OnInit {
 
-// 1. Register functionality
-// 2. Profile page
-// 3. Create post, create comment ,reply to comment
+// 1. Profile page
+// 2. Create post, create comment ,reply to comment
+// 3. Dovrsi LOGIN / REGISTER validaciju,uspesan ispis redirect etc
 
   loginForm: FormGroup;
   private userAuth:UserAuth;

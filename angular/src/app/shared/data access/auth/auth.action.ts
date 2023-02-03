@@ -13,3 +13,5 @@ export class Register{
     static readonly type = '[Auth] Register new user';
     constructor(public userAuth:UserAuth) {}
 }
+
+

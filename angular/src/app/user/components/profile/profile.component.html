@@ -1,0 +1,25 @@
+
+<div id="profile-container" *ngIf="user$ | async as user">
+    <div id="top">
+        <div>
+            <img class="image" src='{{user.image.source}}' alt='{{user.image.alt}}'>
+        </div>
+        <div>
+            <h2 id="mb" class="f-c-blue f-bold-big mb">{{user.name}}</h2>
+            <h2 class="wide f-c-grey f-n-18">Joined: {{user.created_at | date}}</h2>
+            <h2 class="wide f-c-grey f-n-18">Email: {{user.email}}</h2>
+        </div>
+    </div>
+   
+    <div id="down">
+        <div id="left">
+            <button class="buttons f-c-blue f-n-16 bg-white">Posts</button>
+            <button class="buttons f-c-blue f-n-16 bg-white">Replies</button>
+            <button class="buttons f-c-blue f-n-16 bg-white">Friends</button>
+        </div>
+        <div id="right">
+            <button class="buttons f-c-blue f-n-16 bg-white">Add friend</button>
+            <button class="buttons f-c-blue f-n-16 bg-white">Report</button>
+        </div>
+    </div>
+</div>

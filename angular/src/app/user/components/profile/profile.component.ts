@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {Profile} from '../../Profile';
-import { PROFILE } from 'src/app/mock-profiles';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/shared/data access/user/user.model';
 
 @Component({
   selector: 'app-profile',
@@ -9,7 +9,7 @@ import { PROFILE } from 'src/app/mock-profiles';
 })
 export class ProfileComponent implements OnInit {
 
-  profiles:Profile[]=PROFILE;
+  @Input() user$:Observable<User>;
 
   constructor() { }
 

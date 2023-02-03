@@ -15,6 +15,8 @@ import { RepliesState } from './shared/data access/reply/replies.state';
 import { AuthState } from './shared/data access/auth/auth.state';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { AuthInterceptor } from './shared/auth.interceptor';
+import { UserPageComponent } from './user/components/user-page/user-page.component';
+import { UserState } from './shared/data access/user/user.state';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { AuthInterceptor } from './shared/auth.interceptor';
       CategoriesState,
       PostsState,
       RepliesState,
-      AuthState
+      AuthState,
+      UserState,
     ]),
     NgxsStoragePluginModule.forRoot({
       key: 'auth.token'

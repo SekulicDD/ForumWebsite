@@ -5,6 +5,8 @@
 }
 #center{
     width: 1200px; 
+    display: flex;
+ 
 }
 .half{
     margin-right: 10px;
