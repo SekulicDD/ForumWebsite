@@ -26,4 +26,10 @@ export class PostsApiService {
       return post;
     }));
   }
+
+  getUserPosts(userId:number,queryParams:PostsQueryParams){
+    let httpParams=new HttpParams({fromObject:{...queryParams}});
+    const url=api.url+'/users/'+userId+'/posts';
+    return this.http.get<PostsResponse>(url,{params:httpParams});
+  }
 }

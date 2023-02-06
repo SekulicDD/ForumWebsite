@@ -31,7 +31,8 @@ export interface PostsQueryParams extends Paginateable,Sortable{
     images?:boolean;
     user?:boolean;
     latestReply?:boolean;
-    order_by?:PostsOrderBy;
+    order_by?: PostsOrderBy;
+    limit?: number;
 }
 
 export enum PostsOrderBy{
