@@ -17,7 +17,6 @@ export class UsersApiService {
     queryParams.includeRole ? url += 'role=true&' : null;
     queryParams.includeReplies ? url += 'replies=true&' : null;
     queryParams.includeImage ? url += 'image=true&' : null;
-    console.log(url);
     return this.http.get<any>(url).pipe(
       map(response=> {
         return response.data;

@@ -10,7 +10,7 @@
         itemsPerPage: params.limit,
         currentPage: params.page,
         totalItems: total }">
-        <app-thread-line [post]="post"></app-thread-line>
+        <app-thread-line [user]="post.user" [post]="post"></app-thread-line>
         </div>
         <pagination-template #p="paginationApi" (pageChange)="getPage($event)">
             <app-pagination-template  [paginationData]="p"></app-pagination-template>

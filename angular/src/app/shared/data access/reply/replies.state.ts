@@ -2,19 +2,22 @@ import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
 import { RepliesApiService } from "../../services/reply/replies-api.service";
-import { GetRepliesByPostId } from "./reply.action";
+import { GetRepliesByPostId, GetRepliesByUserId } from "./reply.action";
 import { Reply } from "./reply.model";
 
 export class RepliesStateModel{
     replies:Reply[];
-    meta:Meta;
+    meta: Meta;
+    userReplies: Reply[];
+    userRepliesMeta?: Meta;
 }
 
 @State<RepliesStateModel>({
     name:'replies',
     defaults:{
         replies:[],
-        meta:{current_page:1,last_page:1,per_page:1,total:1,from:1,to:1,path:"default"},
+        meta: { current_page: 1, last_page: 1, per_page: 1, total: 1, from: 1, to: 1, path: "default" },
+        userReplies:[]
     },
 })
 
@@ -31,6 +34,20 @@ export class RepliesState{
                     ...state,
                     replies:response.data.data,
                     meta:response.data.meta,
+                });
+            })
+        );
+    }
+
+    @Action(GetRepliesByUserId)
+    getRepliesByUser({getState,setState}:StateContext<RepliesStateModel>,{userId,limit}:GetRepliesByUserId){
+        return this.service.getRepliesByUserId(userId,limit).pipe(
+            tap(response => {
+                const state = getState();
+                setState({
+                    ...state,
+                    userReplies:response.data.data,
+                    userRepliesMeta:response.data.meta,
                 });
             })
         );

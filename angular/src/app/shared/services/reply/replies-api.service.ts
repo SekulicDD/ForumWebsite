@@ -14,4 +14,10 @@ export class RepliesApiService {
     const url=api.url+`/posts/`+postId+`/replies?user=true`;
     return this.http.get<ReplyResponse>(url);
   }
+
+  getRepliesByUserId(userId:number,limit:number){
+    const url = api.url + `/users/` + userId + `/replies?limit=`+limit;
+    return this.http.get<ReplyResponse>(url);
+  }
+  
 }
