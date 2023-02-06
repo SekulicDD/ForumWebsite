@@ -23,8 +23,8 @@
     margin-top:28px;
     border-bottom:1px solid #a8a8a8;
     display:grid;
-    grid-template-columns: 1fr;
-    grid-template-rows:1f 1fr;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows:1fr;
     box-shadow: 5px 5px #d8d8d8;
     width: 1200px;
 }
@@ -34,6 +34,7 @@
 }
 
 #down{
+    margin-top:25px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows:1f ;

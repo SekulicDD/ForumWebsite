@@ -1,5 +1,8 @@
 
 <main>
-    <app-profile [user$]="user$"></app-profile>
+    <app-profile (activeTabEvent)="handleTabEmit($event)"></app-profile>
+    <app-friends-list *ngIf="friendsActive"[userId]="id"></app-friends-list>
+    <app-user-posts *ngIf="postsActive" [userId]="id"></app-user-posts>
+    <app-user-comments *ngIf="commentsActive" [userId]="id"></app-user-comments>
 </main>
 

@@ -1,0 +1,41 @@
+#container{
+    width: 1000px;
+    margin-top: 35px;
+    padding: 15px;
+    color:#3f3f3f;
+}
+
+#container h2{
+    text-align: center;
+    color:#2bcaed;
+    padding-bottom:10px;
+}
+
+#content{
+    display:grid;
+    grid-template-columns: 1fr;
+}
+.post-line{
+    padding-top: 20px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    font-size:18px;
+    border-top:1px solid #a8a8a8;
+}
+
+.post-line h4{
+    font-size:21px;
+    color:black;
+}
+
+.buttons{
+    margin-top: 25px;
+    border:1px solid #a8a8a8;
+    padding:10px;
+    margin-right:10px;
+    background-color: #f6f6f6;
+}
+.buttons:hover{
+    background-color: white;
+}

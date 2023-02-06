@@ -1,0 +1,13 @@
+<div id="container" *ngIf="posts$ | async as posts">
+    <h2>Posts</h2>
+    <div id="content" >
+        <div class="post-line" *ngFor="let post of posts">
+            <h4>{{post.title | shorten:15}}</h4>
+            <p>posted: {{post.created_at | date}}</p>
+            <p>last comment: {{post.updated_at | dateAsAgo}}</p>
+            <p>comments: {{post.replies_count}}</p>
+        </div>
+        <h3 *ngIf="posts.length<1">User has not made any posts.</h3>
+    </div>
+    <button (click)="loadMore()" *ngIf="posts.length>0 && postsLimit<postsTotal" class="buttons f-c-blue f-n-16 bg-white">Load more</button>
+</div>

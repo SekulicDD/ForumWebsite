@@ -1,0 +1,15 @@
+<div id="container" *ngIf="comments$ | async as comments">
+    <h2>Comments</h2>
+    <div id="content">
+        <div class="comment" *ngFor="let comment of comments">
+            <h4>{{comment.text_content | shorten:52}}</h4>
+            <p>{{comment.created_at | dateAsAgo}}</p>
+        </div> 
+        <div *ngIf="comments.length<1">
+            <h3>User has not made any comments</h3>
+        </div>
+      
+    </div>
+    <button (click)="loadMoreComments()" *ngIf="comments.length>0 && commentsLimit < commentsTotal" class="buttons f-c-blue f-n-16 bg-white">Load more</button>
+  
+</div>
