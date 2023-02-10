@@ -1,0 +1,48 @@
+#container{
+    width: 1000px;
+    margin-top: 35px;
+    padding: 15px;
+    color:#3f3f3f;
+}
+
+#container h2{
+    text-align: center;
+    color:#2bcaed;
+    padding-bottom:10px;
+    border-bottom: 1px solid #a8a8a8;
+}
+
+#content{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    
+}
+
+.friend-container{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+   
+}
+
+.image-container{
+    max-width: 90px;
+    margin-right: 20px;
+}
+
+.name-container{
+    font-size:20px;
+}
+
+
+.buttons{
+    margin-top: 25px;
+    border:1px solid #a8a8a8;
+    padding:10px;
+    margin-right:10px;
+}
+.buttons:hover{
+    background-color: #f6f6f6;
+}

@@ -1,0 +1,15 @@
+<div id="container" *ngIf="friends$ | async as friends">
+    <h2>Friend List</h2>
+    <div id="content">
+        <div class="friend-container" *ngFor="let user of friends">
+            <div class="image-container">
+                <img src="https://via.placeholder.com/640x480.png/0077dd?text=et" alt="profile img">
+            </div>
+            <div class="name-container">
+                <p>{{user.name}}</p>
+            </div>          
+        </div>
+        <h3 *ngIf="friends.length<1">User has not made any friends</h3>
+    </div>
+    <button *ngIf="friends.length>0" class="buttons f-c-blue f-n-16 bg-white">Load more</button>
+</div>

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
+import { Subscription } from 'rxjs';
 import { AuthState } from 'src/app/shared/data access/auth/auth.state';
 import { GetUserById } from 'src/app/shared/data access/user/user.action';
-import { TokenService } from 'src/app/shared/services/auth/token.service';
 
 @Component({
   selector: 'app-user-page',
@@ -14,8 +14,7 @@ export class UserPageComponent implements OnInit {
 
   constructor(private store:Store,
     private route: ActivatedRoute,
-    private router: Router,
-    private tokenService:TokenService) {
+    private router: Router) {
   }
 
   id:number;
@@ -24,6 +23,8 @@ export class UserPageComponent implements OnInit {
   postsActive: boolean = true;
   commentsActive: boolean = false;
   friendsActive: boolean = false;
+
+  sub: Subscription;
 
   ngOnInit(): void {
     this.getRouteId();
@@ -43,9 +44,11 @@ export class UserPageComponent implements OnInit {
 
   redirectToProfile():void{
     if (this.isAuth) {
-      let token :string = this.store.selectSnapshot(state => state.auth.token);
-      this.id=this.tokenService.getIdFromToken(token);
-      this.router.navigateByUrl('user/'+this.id);
+      this.sub=this.store.select(state => state.user.authUser).subscribe(user => {
+        if (user != null)
+          this.router.navigateByUrl('user/'+user.id);
+      });
+
     }
     else{
       this.router.navigateByUrl('login');
@@ -69,6 +72,10 @@ export class UserPageComponent implements OnInit {
   handleTabEmit(event:any) {
     this.turnOffTabs();
     this.setActiveTab(event);
+  }
+
+  ngOnDestory(): void{
+    this.sub.unsubscribe();
   }
 
 }
