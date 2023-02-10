@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { AuthState } from 'src/app/shared/data access/auth/auth.state';
 import { GetPostById } from 'src/app/shared/data access/post/post.action';
 import { Post } from 'src/app/shared/data access/post/post.model';
 import { GetRepliesByPostId } from 'src/app/shared/data access/reply/reply.action';
@@ -15,13 +16,14 @@ import { Reply } from 'src/app/shared/data access/reply/reply.model';
 export class PostDetailsPageComponent implements OnInit {
 
   constructor(private store:Store,private route:ActivatedRoute) {
-    this.post$=this.store.select(state=>state.posts.current_post);
-    this.replies$=this.store.select(state=>state.replies.replies);
   }
 
-  post$:Observable<Post>;
-  replies$:Observable<Reply[]>;
-  private id:number=1;
+
+  post$:Observable<Post>=this.store.select(state=>state.posts.current_post);
+  replies$:Observable<Reply[]>=this.store.select(state=>state.replies.replies);
+  isAuth: Boolean = this.store.selectSnapshot(AuthState.isAuthenticated);
+
+  id:number=1;
 
   ngOnInit(): void {
     let id=this.route.snapshot.paramMap.get('id');

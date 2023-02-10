@@ -1,14 +1,14 @@
 
-<div class="container flex topic shadow" *ngIf="post$ | async as post">
+<div class="container topic shadow" *ngIf="post$ | async as post">
     <div class="name">
         <img class="image1" src="{{post.user.image.source}}" alt="post.user.image.alt">
         <h2 id="mb" class="f-c-blue f-bold">{{post.user.name}}</h2>
         <h2 class="text wide f-c-grey f-n-14">Joined: {{post.user.created_at | date}}</h2>
     </div>
-        <div class="border">
-        <div class="flex inline f-c-lightgrey f-n-14">
-        <span class="">{{post.created_at | dateAsAgo}}</span>
-        <span class="align"><img class="image2" src="assets/img/share.png" alt=""></span>
+    <div class="border">
+        <div class=" inline f-c-lightgrey f-n-14">
+            <span class="">{{post.created_at | dateAsAgo}}</span>
+            <span class="align"><img class="image2" src="assets/img/share.png" alt=""></span>
         </div>
         <h3 >{{post.title}}</h3>
         <p class="paragraph f-c-grey f-n-16">{{post.text_content}}</p>

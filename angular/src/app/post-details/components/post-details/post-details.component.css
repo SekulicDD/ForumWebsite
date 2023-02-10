@@ -7,6 +7,12 @@
     padding: 10px;
     margin-top:28px;
 }
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
 .flex{
     display:flex;
     align-items: center;
@@ -56,9 +62,7 @@
     text-align: center;
     margin-right:10px;
 }
-.wide{
-    width:180px;
-}
+
 #mb{
     margin-bottom:10px;
 }

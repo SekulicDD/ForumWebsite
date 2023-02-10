@@ -10,6 +10,11 @@ export interface Reply{
     updated_at:Date;
 }
 
+export interface PostReply{
+    text_content: string;
+    user_id: number;
+}
+
 export interface ReplyResponse{
     data: {
         data: Reply[],

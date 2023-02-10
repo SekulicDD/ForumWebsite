@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { api } from '../../path';
-import { ReplyResponse } from '../../data access/reply/reply.model';
+import { PostReply, Reply, ReplyResponse } from '../../data access/reply/reply.model';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,4 +21,10 @@ export class RepliesApiService {
     return this.http.get<ReplyResponse>(url);
   }
   
+  postReply(postId:number,reply:PostReply) :Observable<Reply> {
+    const url = `${api.url}/posts/${postId}/replies`;
+    return this.http.post<any>(url, reply).pipe(map(response => {
+      return response.data;
+    }));
+  }
 }

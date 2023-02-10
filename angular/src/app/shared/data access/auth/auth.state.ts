@@ -32,7 +32,7 @@ export class AuthState {
     static isAuthenticated(state: AuthStateModel): boolean {
       return !!state.token;
     }
-
+  
     @Action(Login)
     login(ctx: StateContext<AuthStateModel>, action: Login) {
       return this.service.login(action.userAuth).pipe(

@@ -1,6 +1,7 @@
 
 <main>
     <app-post-details [post$]="post$"></app-post-details>
+    <app-comment-form *ngIf="isAuth" [postId]="id"></app-comment-form>
     <div *ngIf="replies$ |async  as replies">
         <div *ngFor="let reply of replies" id="commentContainer">
             <app-comment [reply]="reply"></app-comment>

@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
 import { RepliesApiService } from "../../services/reply/replies-api.service";
-import { GetRepliesByPostId, GetRepliesByUserId } from "./reply.action";
-import { Reply } from "./reply.model";
+import { CreateReply, GetRepliesByPostId, GetRepliesByUserId } from "./reply.action";
+import { PostReply, Reply } from "./reply.model";
 
 export class RepliesStateModel{
     replies:Reply[];
@@ -47,7 +47,22 @@ export class RepliesState{
                 setState({
                     ...state,
                     userReplies:response.data.data,
-                    userRepliesMeta:response.data.meta,
+                    userRepliesMeta: response.data.meta,        
+                });
+            })
+        );
+    }
+
+    @Action(CreateReply)
+    postReply({ getState, patchState }: StateContext<RepliesStateModel>, { postId, reply }: CreateReply) {
+        return this.service.postReply(postId,reply).pipe(
+            tap(response => {
+                const state = getState();
+                //state.meta.total++;
+                console.log(response);
+                patchState({
+                    replies: [response,...state.replies],
+                    //meta: state.meta
                 });
             })
         );
