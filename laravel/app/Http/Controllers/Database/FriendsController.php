@@ -15,7 +15,7 @@ class FriendsController extends Controller
 
     public function __construct(FriendsRepository $friendsRepository) 
     {
-        $this->middleware('auth:api', ['except' => ['getUserFriends']]);
+        $this->middleware('auth:api', ['except' => ['getAcceptedFriends']]);
         $this->friendsRepository = $friendsRepository;
     }
 

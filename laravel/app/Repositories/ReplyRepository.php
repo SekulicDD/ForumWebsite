@@ -26,7 +26,7 @@ class ReplyRepository implements ReplyRepositoryInterface
                 $reply=$reply->with($value);
         }
 
-        return ReplyResource::collection($reply->paginate($limit))->response()->getData();
+        return ReplyResource::collection($reply->orderBy('created_at','desc')->paginate($limit))->response()->getData();
     } 
 
     public function getRepliesByPostId($postId,$includes,$limit)
@@ -36,7 +36,7 @@ class ReplyRepository implements ReplyRepositoryInterface
             $reply=$reply->with($value);
         }
 
-        return ReplyResource::collection($reply->paginate($limit))->response()->getData();
+        return ReplyResource::collection($reply->orderBy('created_at','desc')->paginate($limit))->response()->getData();
     } 
 
     public function createReply(array $replyDetails)
@@ -47,6 +47,7 @@ class ReplyRepository implements ReplyRepositoryInterface
         $reply->text_content=$replyDetails["text_content"];
         $reply->save();
         $reply->post->touch(); //use updated_at for latest reply
+        $reply->user=$reply->user;
         return new ReplyResource($reply);
     } 
 

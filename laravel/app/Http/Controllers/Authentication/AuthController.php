@@ -67,10 +67,6 @@ class AuthController extends Controller
             'status' => 'success',
             'message' => 'User created successfully',
             'user' => new UserResource($user),
-            'authorisation' => [
-                'token' => "asd",
-                'type' => 'bearer',
-            ]
         ]);
     }
 

@@ -41,9 +41,11 @@ Route::group([
     Route::post('/change-password', [ResetPasswordController::class, 'changePassword']);
 });
 
-
-
-
+Route::controller(UserController::class)->group(function(){
+    Route::get('users/{user}','show');
+    Route::get('users/{search?}','index');
+    Route::put('users/{id}','update');
+});
 
 Route::controller(CategoryController::class)->group(function(){
     Route::get('categories/{limit?}','index');
@@ -70,17 +72,11 @@ Route::controller(PostController::class)->group(function(){
     Route::get('posts/{limit?}/{order_by?}/{direction?}/{search?}','index');
 
     Route::get('categories/{category}/posts/{search?}','getCategoryPosts');
-    Route::get('users/{user}/posts//{search?}','getUserPosts');
+    Route::get('users/{user}/posts/{search?}','getUserPosts');
 
     Route::post('posts','store');
     Route::put('posts','update');
     Route::delete('posts/{post}','destroy');
-});
-
-Route::controller(UserController::class)->group(function(){
-    Route::get('users/{search?}','index');
-    Route::get('users/{user}','show');
-    Route::put('users/{id}','update');
 });
 
 Route::controller(FriendsController::class)->group(function(){
