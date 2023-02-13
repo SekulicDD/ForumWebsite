@@ -15,9 +15,12 @@ import { RepliesState } from './shared/data access/reply/replies.state';
 import { AuthState } from './shared/data access/auth/auth.state';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { AuthInterceptor } from './shared/auth.interceptor';
-import { UserPageComponent } from './user/components/user-page/user-page.component';
 import { UserState } from './shared/data access/user/user.state';
 import { FriendsState } from './shared/data access/friend/friends.state';
+import { ErrorInterceptor } from './shared/error.interceptor';
+import { ToastrModule } from 'ngx-toastr';
+
+
 
 @NgModule({
   declarations: [
@@ -31,6 +34,7 @@ import { FriendsState } from './shared/data access/friend/friends.state';
     HttpClientModule,
     FontAwesomeModule,
     AppRoutingModule,
+    ToastrModule.forRoot(),
     NgxsModule.forRoot([
       CategoriesState,
       PostsState,
@@ -50,6 +54,11 @@ import { FriendsState } from './shared/data access/friend/friends.state';
     {
       provide:HTTP_INTERCEPTORS,
       useClass:AuthInterceptor,
+      multi:true
+    },
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:ErrorInterceptor,
       multi:true
     }
   ],
