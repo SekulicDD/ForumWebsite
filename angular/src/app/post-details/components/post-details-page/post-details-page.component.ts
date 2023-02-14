@@ -7,6 +7,7 @@ import { GetPostById } from 'src/app/shared/data access/post/post.action';
 import { Post } from 'src/app/shared/data access/post/post.model';
 import { GetRepliesByPostId } from 'src/app/shared/data access/reply/reply.action';
 import { Reply } from 'src/app/shared/data access/reply/reply.model';
+import { User } from 'src/app/shared/data access/user/user.model';
 
 @Component({
   selector: 'app-post-details-page',
@@ -22,6 +23,7 @@ export class PostDetailsPageComponent implements OnInit {
   post$:Observable<Post>=this.store.select(state=>state.posts.current_post);
   replies$:Observable<Reply[]>=this.store.select(state=>state.replies.replies);
   isAuth: Boolean = this.store.selectSnapshot(AuthState.isAuthenticated);
+  authUser$: Observable<User> | null;
 
   id:number=1;
 
@@ -31,6 +33,10 @@ export class PostDetailsPageComponent implements OnInit {
       this.id=parseInt(id);
     this.store.dispatch(new GetPostById(this.id));
     this.store.dispatch(new GetRepliesByPostId(this.id));
+
+    if (this.isAuth) {
+      this.authUser$ = this.store.select(state => state.user.authUser);
+    }
   }
 
 }

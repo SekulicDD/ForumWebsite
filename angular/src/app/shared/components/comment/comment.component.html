@@ -1,13 +1,18 @@
 
-<div class="container flex topic shadow">
+<div class="container topic shadow">
     <div class="name">
         <img class="image1" src="{{reply.user?.image?.source}}" alt="profilePicture">
     </div>
-        <div class="border">
+    <div class="border">
         <p class="f-c-blue f-titles">{{reply.user?.name}}</p>
         <p class="paragraph f-c-grey f-n-16">{{reply.text_content}}</p>
-        <span class="f-c-lightgrey f-n-14 margin"> {{reply.created_at | dateAsAgo}} ago </span>
-        <span class="f-c-lightgrey f-n-14 margin">reply identifier {{reply.id}}</span>
+        <div>
+            <span class="f-c-lightgrey f-n-14 margin"> {{reply.created_at | dateAsAgo}} ago </span>
+            <span class="f-c-lightgrey f-n-14 margin">reply identifier {{reply.id}}</span>
+        </div>
+    </div>
+    <div *ngIf="authUser?.id==reply.user?.id" class="comment-icons">
+        <a href="#" (click)="deleteComment($event)"><i class="fa-solid fa-trash"></i></a>
     </div>
 </div>
 

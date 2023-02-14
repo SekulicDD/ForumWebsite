@@ -7,7 +7,7 @@
     padding: 15px;
     margin-top: 20px;
     display: grid;
-    grid-template-columns: 1fr 6fr;
+    grid-template-columns: 1fr 5fr;
 }
 .flex{
     display:flex;

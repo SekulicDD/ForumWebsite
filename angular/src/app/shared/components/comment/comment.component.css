@@ -7,9 +7,9 @@
     padding: 10px;
     margin-top:15px;
 }
-.flex{
-    display:flex;
-    align-items: center;
+.container{
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
 }
 .position{
     justify-content: flex-end;
@@ -34,6 +34,9 @@
     font-size:15px;
 }
 .border{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding-left:10px;
     border-left: solid 1px #a8a8a8;
 }
@@ -62,4 +65,10 @@
 }
 .align{
     align-items: center;
+}
+
+.comment-icons{
+    position: relative;
+    margin-top: auto;
+    text-align: right;
 }

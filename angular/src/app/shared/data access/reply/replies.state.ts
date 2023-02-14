@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Action, Selector, State, StateContext } from "@ngxs/store";
+import { Action, State, StateContext } from "@ngxs/store";
+import { ToastrService } from "ngx-toastr";
 import { tap } from "rxjs";
 import { RepliesApiService } from "../../services/reply/replies-api.service";
-import { CreateReply, GetRepliesByPostId, GetRepliesByUserId } from "./reply.action";
-import { PostReply, Reply } from "./reply.model";
+import { CreateReply, DeleteReply, GetRepliesByPostId, GetRepliesByUserId } from "./reply.action";
+import { Reply } from "./reply.model";
 
 export class RepliesStateModel{
     replies:Reply[];
@@ -23,7 +24,7 @@ export class RepliesStateModel{
 
 @Injectable()
 export class RepliesState{
-    constructor(private service:RepliesApiService){}
+    constructor(private service:RepliesApiService,private toast:ToastrService){}
 
     @Action(GetRepliesByPostId)
     getRepliesByCategory({getState,setState}:StateContext<RepliesStateModel>,{postId}:GetRepliesByPostId){
@@ -59,10 +60,30 @@ export class RepliesState{
             tap(response => {
                 const state = getState();
                 //state.meta.total++;
-                console.log(response);
+                //console.log(response);
                 patchState({
                     replies: [response,...state.replies],
                     //meta: state.meta
+                });
+                this.toast.success("Comment succesfully created!", "", {
+                    positionClass: 'toast-bottom-right',
+                    onActivateTick: true,  
+                });
+            })
+        );
+    }
+
+    @Action(DeleteReply)
+    deleteReply({ getState, patchState }: StateContext<RepliesStateModel>, {replyId }: DeleteReply) {
+        return this.service.deleteReply(replyId).pipe(
+            tap(response => {
+                const state = getState();
+                patchState({
+                    replies: state.replies.filter(reply => reply.id != replyId)
+                });
+                this.toast.success("Comment succesfully deleted!", "", {
+                    positionClass: 'toast-bottom-right',
+                    onActivateTick: true,  
                 });
             })
         );

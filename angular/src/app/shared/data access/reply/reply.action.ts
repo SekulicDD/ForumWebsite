@@ -15,3 +15,7 @@ export class CreateReply {
     constructor(public postId:number,public reply:PostReply){}
 }
   
+export class DeleteReply {
+    static readonly type = '[Replies] Delete reply';
+    constructor(public replyId:number){}
+}

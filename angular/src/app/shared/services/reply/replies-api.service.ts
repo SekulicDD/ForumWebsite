@@ -29,4 +29,9 @@ export class RepliesApiService {
       return response.data;
     }));
   }
+
+  deleteReply(replyId:number) {
+    const url = `${api.url}/replies/${replyId}`;
+    return this.http.delete(url);
+  }
 }
