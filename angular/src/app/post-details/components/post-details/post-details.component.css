@@ -21,6 +21,11 @@
     justify-content: flex-end;
     padding:20px;
 }
+.position span{
+    font-size:20px;
+    cursor: pointer;
+}
+
 .inline{
     justify-content: space-between;
     padding-right:20px;

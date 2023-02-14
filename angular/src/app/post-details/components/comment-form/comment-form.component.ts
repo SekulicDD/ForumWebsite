@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
@@ -16,6 +16,11 @@ export class CommentFormComponent implements OnInit {
   constructor(private store: Store,private toast:ToastrService) { }
   
   @Input() postId: number;
+  @Output() commentFormEmiter: EventEmitter<boolean> = new EventEmitter();
+
+  hideComment() {
+    this.commentFormEmiter.emit(false);
+  }
 
   user$: Observable<User> = this.store.select(state => state.user.authUser);
   id: number;
@@ -32,8 +37,10 @@ export class CommentFormComponent implements OnInit {
       this.toast.error("Comment can't exceed 1000 charaters", "Validation Error", {
         positionClass: "toast-bottom-right"
       });
-    else
-      this.store.dispatch(new CreateReply(this.postId, { text_content:text, user_id: this.id }));
+    else {
+      this.store.dispatch(new CreateReply(this.postId, { text_content: text, user_id: this.id }));
+      this.hideComment();
+    }
   }
 
 }

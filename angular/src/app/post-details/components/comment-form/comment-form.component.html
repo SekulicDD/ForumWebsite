@@ -8,8 +8,11 @@
         <div >
             <textarea type="text" class="f-n-16" placeholder="Write your reply" id="text" #text></textarea>
             <div class="flex justify">
-                <button class="button1 f-c-blue f-n-16 bg-white">Add picture</button>
-                <button (click)="postComment(text.value)" class="button2 f-c-white f-n-16 bg-blue">Post comment</button>
+                    <button class="button1 f-c-blue f-n-16 bg-white" (click)="hideComment()">Cancel</button>
+                <div>
+                    <button class="button2 f-c-white f-n-16 bg-blue">Insert picture</button>            
+                    <button (click)="postComment(text.value)" class="button2 f-c-white f-n-16 bg-blue">Post comment</button>
+                </div>
             </div>    
         </div>
     </div>

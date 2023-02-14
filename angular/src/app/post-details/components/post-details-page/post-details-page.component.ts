@@ -24,8 +24,9 @@ export class PostDetailsPageComponent implements OnInit {
   replies$:Observable<Reply[]>=this.store.select(state=>state.replies.replies);
   isAuth: Boolean = this.store.selectSnapshot(AuthState.isAuthenticated);
   authUser$: Observable<User> | null;
-
-  id:number=1;
+  id: number = 1;
+  
+  showComment: boolean = false;
 
   ngOnInit(): void {
     let id=this.route.snapshot.paramMap.get('id');
@@ -37,6 +38,10 @@ export class PostDetailsPageComponent implements OnInit {
     if (this.isAuth) {
       this.authUser$ = this.store.select(state => state.user.authUser);
     }
+  }
+
+  showCommentForm(event:boolean) {
+    this.showComment = event;
   }
 
 }

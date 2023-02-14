@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Post } from 'src/app/shared/data access/post/post.model';
 
@@ -10,6 +10,11 @@ import { Post } from 'src/app/shared/data access/post/post.model';
 export class PostDetailsComponent implements OnInit {
 
   constructor() { }
+  @Output() commentFormEmiter: EventEmitter<boolean> = new EventEmitter();
+
+  showCommentForm() {
+    this.commentFormEmiter.emit(true);
+  }
 
   @Input() post$:Observable<Post>;
 
