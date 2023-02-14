@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { DeleteReply } from '../../data access/reply/reply.action';
 import { Reply } from '../../data access/reply/reply.model';
@@ -14,7 +14,10 @@ export class CommentComponent implements OnInit {
   constructor(private store:Store) { }
 
   @Input() reply:Reply;
-  @Input() authUser:User | null;
+  @Input() authUser: User | null;
+  
+  @Output() commentFormEmitter: EventEmitter<boolean> = new EventEmitter();
+  @Output() editReply: EventEmitter<Reply> = new EventEmitter();
 
   ngOnInit(): void {
   }
@@ -22,6 +25,12 @@ export class CommentComponent implements OnInit {
   deleteComment(event: Event) {
     event.preventDefault();
     this.store.dispatch(new DeleteReply(this.reply.id));
+  }
+
+  editComment(event:Event) {
+    event.preventDefault();
+    this.commentFormEmitter.emit(true);
+    this.editReply.emit(this.reply);
   }
 
 }

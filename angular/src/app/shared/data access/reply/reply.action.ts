@@ -14,8 +14,14 @@ export class CreateReply {
     static readonly type = '[Replies] Create new reply';
     constructor(public postId:number,public reply:PostReply){}
 }
+
+export class UpdateReply {
+    static readonly type = '[Replies] Update reply';
+    constructor(public reply:Reply){}
+}
   
 export class DeleteReply {
     static readonly type = '[Replies] Delete reply';
     constructor(public replyId:number){}
 }
+

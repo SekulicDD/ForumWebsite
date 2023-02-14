@@ -72,3 +72,7 @@
     margin-top: auto;
     text-align: right;
 }
+
+.comment-icons a{
+    padding-left: 10px;
+}

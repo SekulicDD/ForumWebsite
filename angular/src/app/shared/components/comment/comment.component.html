@@ -9,9 +9,11 @@
         <div>
             <span class="f-c-lightgrey f-n-14 margin"> {{reply.created_at | dateAsAgo}} ago </span>
             <span class="f-c-lightgrey f-n-14 margin">reply identifier {{reply.id}}</span>
+            <span *ngIf="reply.updated_at!=null" class="f-c-lightgrey f-n-14 margin">{{reply.updated_at | dateAsAgo}}</span>
         </div>
     </div>
     <div *ngIf="authUser?.id==reply.user?.id" class="comment-icons">
+        <a href="#" (click)="editComment($event)"><i class="fa-solid fa-pen-to-square"></i></a>
         <a href="#" (click)="deleteComment($event)"><i class="fa-solid fa-trash"></i></a>
     </div>
 </div>

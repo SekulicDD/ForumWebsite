@@ -27,6 +27,7 @@ export class PostDetailsPageComponent implements OnInit {
   id: number = 1;
   
   showComment: boolean = false;
+  editReply: Reply | null;
 
   ngOnInit(): void {
     let id=this.route.snapshot.paramMap.get('id');
@@ -42,6 +43,11 @@ export class PostDetailsPageComponent implements OnInit {
 
   showCommentForm(event:boolean) {
     this.showComment = event;
+    this.editReply = null;
+  }
+
+  passToCommentForm(reply:Reply) {
+    this.editReply = reply;
   }
 
 }

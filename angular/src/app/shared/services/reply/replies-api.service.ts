@@ -30,6 +30,12 @@ export class RepliesApiService {
     }));
   }
 
+  updateReply(replyId: number, content: string) {
+    const url = `${api.url}/replies`;
+    return this.http.put(url, { id: replyId, text_content: content });
+  }
+
+
   deleteReply(replyId:number) {
     const url = `${api.url}/replies/${replyId}`;
     return this.http.delete(url);

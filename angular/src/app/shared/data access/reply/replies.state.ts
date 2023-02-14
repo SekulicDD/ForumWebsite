@@ -3,8 +3,9 @@ import { Action, State, StateContext } from "@ngxs/store";
 import { ToastrService } from "ngx-toastr";
 import { tap } from "rxjs";
 import { RepliesApiService } from "../../services/reply/replies-api.service";
-import { CreateReply, DeleteReply, GetRepliesByPostId, GetRepliesByUserId } from "./reply.action";
+import { CreateReply, DeleteReply, GetRepliesByPostId, GetRepliesByUserId, UpdateReply } from "./reply.action";
 import { Reply } from "./reply.model";
+
 
 export class RepliesStateModel{
     replies:Reply[];
@@ -72,6 +73,29 @@ export class RepliesState{
             })
         );
     }
+
+    @Action(UpdateReply)
+    updateReply({ getState, patchState }: StateContext<RepliesStateModel>, {reply:editReply}: UpdateReply) {
+        return this.service.updateReply(editReply.id,editReply.text_content).pipe(
+            tap(response => {
+                const state = getState();
+                const replies = state.replies.map(reply => {
+                    if (reply.id == editReply.id)
+                        return editReply;
+                    else
+                        return reply;
+                });
+                patchState({
+                    replies: replies
+                });
+                this.toast.success("Comment succesfully updated!", "", {
+                    positionClass: 'toast-bottom-right',
+                    onActivateTick: true,  
+                });
+            })
+        );
+    }
+
 
     @Action(DeleteReply)
     deleteReply({ getState, patchState }: StateContext<RepliesStateModel>, {replyId }: DeleteReply) {
