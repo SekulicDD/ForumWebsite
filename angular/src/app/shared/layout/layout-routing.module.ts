@@ -31,6 +31,10 @@ const routes: Routes = [
         loadChildren: () => import('../../posts/posts.module').then(m => m.PostsModule)
       },
       {
+        path:'post/create',
+        loadChildren: () => import('../../post-create/post-create.module').then(m => m.PostCreateModule)
+      },
+      {
         path:'post/:id',
         loadChildren: () => import('../../post-details/post-details.module').then(m => m.PostDetailsModule)
       },

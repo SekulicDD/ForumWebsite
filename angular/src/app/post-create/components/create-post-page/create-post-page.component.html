@@ -1,0 +1,22 @@
+<main>
+    <div id="container">
+    <form action="" method="POST">
+            <div>
+                <h2>Title:</h2>
+                <input type="text" name="title"/>
+            </div>
+            <div>
+                <h2>Content:</h2>
+                <div id="editor">
+                 <quill-editor [modules]="quillConfig"  placeholder="Enter Text"></quill-editor>
+                </div>
+            
+            </div>
+            <div id="buttons">
+                <button class="btn" type="button">Create post</button>
+                <button class="btn" type="button">Insert picture</button>
+                <button type="button" id="cancel">Cancel</button>
+            </div>
+    </form>
+    </div>
+</main>

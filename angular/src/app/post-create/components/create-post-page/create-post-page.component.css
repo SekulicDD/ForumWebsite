@@ -1,0 +1,40 @@
+main{
+    display: flex;
+    justify-content: center;
+}
+
+#container{
+    margin-top: 40px;
+    background-color: white;
+    width: 1200px;
+    padding:30px 50px;
+    box-shadow: 5px 5px #d8d8d8;
+}
+
+#editor{
+    height:280px;
+    
+}
+
+.btn{
+    margin-top: 60px;
+    border:1px solid #a8a8a8;
+    padding:10px;
+    margin-right:10px;
+}
+
+.btn:hover{
+    background-color: #f6f6f6;
+}
+
+#buttons{
+    display: flex;
+}
+
+#cancel{
+    margin-top: 60px;
+    border:1px solid #a8a8a8;
+    padding:10px;
+    margin-left: auto;
+}
+
